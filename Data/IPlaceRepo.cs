@@ -9,6 +9,6 @@ namespace Refrigerator.Data
         /// <summary>
         /// Возвращает словарь {key: LocationName, value: Place} с информацией по каждому месту в холодильнике.
         /// </summary>
-        KeyValuePair<string, Place> GetPlaceRefrigerator();
+        Dictionary<string, Place> GetPlaceRefrigerator();
     }
 }

@@ -8,27 +8,27 @@
         /// <summary>
         /// идентификатор места.
         /// </summary>
-        private int _placeId { get; set; }
+        public  int placeId { get; set; }
 
         /// <summary>
         /// Название места.
         /// </summary>
-        private string _name { get; set; }
+        public  string name { get; set; }
 
         /// <summary>
         /// Идентификатор местаположения.
         /// </summary>
-        private string _locationId { get; set; }
+        public  int locationId { get; set; }
 
         /// <summary>
         /// Давление
         /// </summary>
         /// <value>From 0 to 1</value>
-        private string _pressure { get; set; }
+        public  float pressure { get; set; }
 
         /// <summary>
         /// Тип еды.
         /// </summary>
-        private string _foodType { get; set; }
+        public  string foodType { get; set; }
     }
 }
