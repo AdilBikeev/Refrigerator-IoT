@@ -9,7 +9,7 @@ using Refrigerator.Data;
 namespace Refrigerator.Migrations
 {
     [DbContext(typeof(RefrigeratorContext))]
-    [Migration("20200926154705_InitialMigration")]
+    [Migration("20200926170554_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

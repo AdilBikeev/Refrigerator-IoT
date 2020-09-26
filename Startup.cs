@@ -24,12 +24,24 @@ namespace Refrigerator
 
         public IConfiguration Configuration { get; }
 
+        public bool IsDevelopment => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<RefrigeratorContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("RefrigeratorConnection")));
 
-            services.AddScoped<IPlaceRepo, MockPlaceRepo>();
+            Console.WriteLine($"{nameof(IsDevelopment)}={IsDevelopment}");
+            var foo = Environment.GetEnvironmentVariables();
+            if (this.IsDevelopment)
+            {
+                services.AddScoped<IPlaceRepo, MockPlaceRepo>();                
+            }
+            else 
+            {
+                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();    
+            }
+
 
             services.AddControllers();
         }
