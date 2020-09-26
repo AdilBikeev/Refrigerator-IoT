@@ -18,7 +18,7 @@ namespace Refrigerator.Controllers
 
         // GET api/refrigerator
         [HttpGet]
-        public ActionResult<Dictionary<string, Place>> GetAllPlaces()
+        public ActionResult<Dictionary<string, List<Place>>> GetAllPlaces()
         {
             var repo = this._placeRepo.GetPlaceRefrigerator();
 
