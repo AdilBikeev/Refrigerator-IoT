@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Refrigerator.Data;
 
 namespace Refrigerator
 {
@@ -24,6 +25,8 @@ namespace Refrigerator
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPlaceRepo, MockPlaceRepo>();
+
             services.AddControllers();
         }
 
