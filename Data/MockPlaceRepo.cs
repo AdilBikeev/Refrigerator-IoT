@@ -5,26 +5,6 @@ namespace Refrigerator.Data
 {
     public class MockPlaceRepo : IPlaceRepo
     {
-        /// <summary>
-        /// Названия мест в холодильнике
-        /// </summary>
-        enum PlaceName
-        {
-            Top,
-            Middle,
-            Bottom
-        }
-
-        /// <summary>
-        /// Типы пищи.
-        /// </summary>
-        enum FoodType
-        {
-            Water,
-            Meat,
-            Fruit
-        }
-
         public Dictionary<string, List<Place>> GetPlaceRefrigerator()
         {
             return new Dictionary<string, List<Place>>
