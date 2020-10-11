@@ -1,32 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Refrigerator.Models
+namespace RefrigeratorServerSide.Models
 {
     /// <summary>
     /// Класс, описывающий данные сенсора.
     /// </summary>
     public class SensorData
     {
-        [Required]
+        [Key]
         /// <summary>
         /// ID сенсора.
         /// </summary>
-        public string sensorUUID { get; set; }
+        public string SensorUUID { get; set; }
 
         [Required]
         /// <summary>
         /// Значение сенсора.
         /// </summary>
-        public string value { get; set; }
+        public string Value { get; set; }
 
         [Required]
         /// <summary>
         /// Название сенсора.
         /// </summary>
-        public string name { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Указываем принадлежность сенсора отдельному блоку.
+        /// </summary>
+        [ForeignKey("BlockUUID")]
+        public RefrigeratorBlock RefrigeratorBlock { get; set; }
     }
 }

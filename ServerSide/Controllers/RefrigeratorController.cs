@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Refrigerator.Data;
-using Refrigerator.Models;
+using RefrigeratorServerSide.Data;
+using RefrigeratorServerSide.Models;
 
-namespace Refrigerator.Controllers
+namespace RefrigeratorServerSide.Controllers
 {
     [Route("api/refrigerator")]
     [ApiController]

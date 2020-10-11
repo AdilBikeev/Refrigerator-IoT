@@ -11,9 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Refrigerator.Data;
+using RefrigeratorServerSide.Data;
 
-namespace Refrigerator
+namespace RefrigeratorServerSide
 {
     public class Startup
     {

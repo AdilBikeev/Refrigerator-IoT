@@ -1,32 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Refrigerator.Models
+namespace RefrigeratorServerSide.Models
 {
     /// <summary>
     /// Класс, описывающий данные блока холодильника.
     /// </summary>
     public class RefrigeratorBlock
     {
-        [Required]
+        [Key]
         /// <summary>
         /// ID блока.
         /// </summary>
-        public string blockUUID { get; set; }
-
-        [Required]
-        /// <summary>
-        /// Список ID сенсоров в холодильнике.
-        /// </summary>
-        public List<string> sensorsIDs { get; set; }
+        public string BlockUUID { get; set; }
 
         [Required]
         /// <summary>
         /// Название блока в холодильнике.
         /// </summary>
-        public string name { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Указываем принадлежность блока отдельному холодильнику.
+        /// </summary>
+        [ForeignKey("RefrigeratorUUID")]
+        public Refrigerator Refrigerator { get; set; }
     }
 }

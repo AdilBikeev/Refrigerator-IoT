@@ -4,34 +4,28 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Refrigerator.Models
+namespace RefrigeratorServerSide.Models
 {
     /// <summary>
     /// Класс, описывающий данные холодильника.
     /// </summary>
     public class Refrigerator
     {
-        [Required]
+        [Key]
         /// <summary>
         /// ID холодильника.
         /// </summary>
-        public string refrigeratorUUID { get; set; }
-
-        [Required]
-        /// <summary>
-        /// Список из ID блоков в холодильнике.
-        /// </summary>
-        public List<string> blockIDs { get; set; }
+        public string RefrigeratorUUID { get; set; }
 
         [Required]
         /// <summary>
         /// Название холодильника.
         /// </summary>
-        public string name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Название сенсора.
         /// </summary>
-        public string description { get; set; }
+        public string Description { get; set; }
     }
 }

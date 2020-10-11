@@ -3,7 +3,7 @@ using System.Linq;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Refrigerator.Models 
+namespace RefrigeratorServerSide.Models 
 {
     /// <summary>
     /// Названия мест в холодильнике

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Refrigerator.Models;
+using RefrigeratorServerSide.Models;
 
-namespace Refrigerator.Data
+namespace RefrigeratorServerSide.Data
 {
     public class SqlPlaceRepo : IPlaceRepo
     {

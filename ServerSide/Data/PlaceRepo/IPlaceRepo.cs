@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
 using System.Collections.Generic;
-using Refrigerator.Models;
+using RefrigeratorServerSide.Models;
 
-namespace Refrigerator.Data 
+namespace RefrigeratorServerSide.Data 
 {
     public interface IPlaceRepo
     {
