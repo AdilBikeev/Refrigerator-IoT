@@ -29,6 +29,6 @@
 
 # Использование различных конфигураций
 В решении доступны 2 вида конфигурации: RefrigeratorDebug, RefrigeratorRelease
-Для запуска сервиса под нужную конфигурацию нужно выполнить следующую команду в консоли: `dotnet rin --launch-profile Refrigerator{ Debug | Realese }`
+Для запуска сервиса под нужную конфигурацию нужно выполнить следующую команду в консоли: `dotnet run --launch-profile Refrigerator{ Debug | Realese }`
     * Debug - использует набор статических данных
     * Release - использует Production версию сервиса
