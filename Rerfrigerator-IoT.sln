@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refrigerator", "ServerSide\Refrigerator.csproj", "{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RefrigeratorServerSide", "ServerSide\RefrigeratorServerSide.csproj", "{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulatedDevice", "SimulatedDevice\SimulatedDevice.csproj", "{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}"
 EndProject
