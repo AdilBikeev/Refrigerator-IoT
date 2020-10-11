@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RefrigeratorRemote.Models;
 using RefrigeratorServerSide.Models;
 
 namespace RefrigeratorServerSide.Data 

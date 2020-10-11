@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RefrigeratorServerSide.Models
+namespace RefrigeratorRemote.Models
 {
     /// <summary>
     /// Класс, описывающий данные сенсора.
