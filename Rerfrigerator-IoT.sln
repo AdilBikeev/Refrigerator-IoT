@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refrigerator", "ServerSide\Refrigerator.csproj", "{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulatedDevice", "SimulatedDevice\SimulatedDevice.csproj", "{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F499F685-0D71-4235-A6F8-36DF6A84D772}
+	EndGlobalSection
+EndGlobal
