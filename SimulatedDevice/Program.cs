@@ -22,7 +22,7 @@ namespace SimulatedDevice
         /// <summary>
         /// Метод для отправки данных на Azure IoT.
         /// </summary>
-        private static async void SendDeviceToCloudMessagesAsync(BaseRefrigerator refrigerator)
+        private static async void SendDeviceToCloudMessagesAsync(BaseRefrigerator refrigerator, BaseRefrigeratorBlock refrigeratorBlock)
         {
             while (true)
             {
