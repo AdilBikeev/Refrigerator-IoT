@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RefrigeratorServerSide", "ServerSide\RefrigeratorServerSide.csproj", "{54EDE1B4-2AE8-4237-8CBC-F72ABB3CEF0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulatedDevice", "SimulatedDevice\SimulatedDevice.csproj", "{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimulatedDevice", "SimulatedDevice\SimulatedDevice.csproj", "{3963A97F-21FE-4E4F-BDBC-B4403BF5BB2C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9136E6FD-5818-4628-AFF0-F818D838B10A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefrigeratorRemote", "DeviceIoTRemote\RefrigeratorRemote.csproj", "{330E8C69-0A83-4726-84E7-1B5E4870697F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RefrigeratorRemote", "DeviceIoTRemote\RefrigeratorRemote.csproj", "{330E8C69-0A83-4726-84E7-1B5E4870697F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{64792C11-CFBD-4AD2-8D7F-209F29C88DE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools", "Tools\Tools.csproj", "{64792C11-CFBD-4AD2-8D7F-209F29C88DE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.csproj", "{8733C5E0-0967-41D2-954F-16DF96CEE60C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{64792C11-CFBD-4AD2-8D7F-209F29C88DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64792C11-CFBD-4AD2-8D7F-209F29C88DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64792C11-CFBD-4AD2-8D7F-209F29C88DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8733C5E0-0967-41D2-954F-16DF96CEE60C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8733C5E0-0967-41D2-954F-16DF96CEE60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8733C5E0-0967-41D2-954F-16DF96CEE60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8733C5E0-0967-41D2-954F-16DF96CEE60C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{330E8C69-0A83-4726-84E7-1B5E4870697F} = {9136E6FD-5818-4628-AFF0-F818D838B10A}
 		{64792C11-CFBD-4AD2-8D7F-209F29C88DE3} = {9136E6FD-5818-4628-AFF0-F818D838B10A}
+		{8733C5E0-0967-41D2-954F-16DF96CEE60C} = {9136E6FD-5818-4628-AFF0-F818D838B10A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F499F685-0D71-4235-A6F8-36DF6A84D772}
