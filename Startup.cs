@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Refrigerator.Data;
 
 namespace Refrigerator
 {
@@ -22,8 +24,25 @@ namespace Refrigerator
 
         public IConfiguration Configuration { get; }
 
+        public bool IsDevelopment => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<RefrigeratorContext>(opt => opt.UseSqlServer
+                (Configuration.GetConnectionString("RefrigeratorConnection")));
+
+            Console.WriteLine($"{nameof(IsDevelopment)}={IsDevelopment}");
+            var foo = Environment.GetEnvironmentVariables();
+            if (this.IsDevelopment)
+            {
+                services.AddScoped<IPlaceRepo, MockPlaceRepo>();                
+            }
+            else 
+            {
+                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();    
+            }
+
+
             services.AddControllers();
         }
 
