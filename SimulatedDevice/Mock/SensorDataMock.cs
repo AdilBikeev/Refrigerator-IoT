@@ -59,5 +59,10 @@ namespace SimulatedDevice.Mock
                 RefrigeratorBlock = refrigeratorBlock.RefrigeratorBlock
             };
         }
+
+        public override void Update()
+        {
+            this.SensorData.Value = $"{(new Random().Next(0, 35))} {this.dictDataTypes[this.SensorData.Name]}";
+        }
     }
 }
