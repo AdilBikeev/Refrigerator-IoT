@@ -82,7 +82,7 @@ namespace RemoteProvider.Models
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        private async Task ReceiveMessagesFromDeviceAsync(CancellationToken cancellationToken)
+        public async Task<SensorData> ReceiveMessagesFromDeviceAsync()
         {
             string connectionString = BuildEventHubsConnectionString(EventHubsCompatibleEndpoint, IotHubSasKeyName, IotHubSasKey);
 
@@ -92,13 +92,15 @@ namespace RemoteProvider.Models
 
             try
             {
-                await foreach (PartitionEvent partitionEvent in consumer.ReadEventsAsync(cancellationToken))
+                await foreach (PartitionEvent partitionEvent in consumer.ReadEventsAsync())
                 {
                     Console.WriteLine("Message received on partition {0}:", partitionEvent.Partition.PartitionId);
 
                     // Переданное IoT устройством сообщение
                     string data = Encoding.UTF8.GetString(partitionEvent.Data.Body.ToArray());
                     Console.WriteLine("\t{0}:", data);
+
+                    return JsonConvert.DeserializeObject<SensorData>(data);
                 }
             }
             catch (TaskCanceledException)
@@ -106,6 +108,8 @@ namespace RemoteProvider.Models
                 // This is expected when the token is signaled; it should not be considered an
                 // error in this scenario.
             }
+
+            return null;
         }
     }
 }
