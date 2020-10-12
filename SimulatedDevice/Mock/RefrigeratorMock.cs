@@ -1,8 +1,5 @@
-﻿using RefrigeratorRemote.Models;
-using SimulatedDevice.Models;
-using System;
+﻿using RemoteProvider.Models;
 using System.Collections.Generic;
-using System.Text;
 using Tools;
 
 namespace SimulatedDevice.Mock

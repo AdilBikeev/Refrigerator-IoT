@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeviceIoTRemote\RefrigeratorRemote.csproj" />
+    <ProjectReference Include="..\DeviceIoTRemote\RemoteProvider.csproj" />
   </ItemGroup>
 
 

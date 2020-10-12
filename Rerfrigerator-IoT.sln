@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimulatedDevice", "Simulate
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9136E6FD-5818-4628-AFF0-F818D838B10A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RefrigeratorRemote", "DeviceIoTRemote\RefrigeratorRemote.csproj", "{330E8C69-0A83-4726-84E7-1B5E4870697F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProvider", "DeviceIoTRemote\RemoteProvider.csproj", "{330E8C69-0A83-4726-84E7-1B5E4870697F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools", "Tools\Tools.csproj", "{64792C11-CFBD-4AD2-8D7F-209F29C88DE3}"
 EndProject

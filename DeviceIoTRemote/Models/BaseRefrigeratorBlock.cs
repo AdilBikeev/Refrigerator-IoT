@@ -1,9 +1,4 @@
-﻿using RefrigeratorRemote.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimulatedDevice.Models
+﻿namespace RemoteProvider.Models
 {
     public abstract class BaseRefrigeratorBlock
     {

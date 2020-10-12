@@ -1,13 +1,4 @@
 ﻿using System;
-using Microsoft.Azure.Devices.Client;
-using Newtonsoft.Json;
-using System.Text;
-using System.Threading.Tasks;
-using RefrigeratorRemote.Models;
-using Tools;
-using SimulatedDevice.Mock;
-using SimulatedDevice.Models;
-using Newtonsoft.Json.Linq;
 
 namespace SimulatedDevice
 {

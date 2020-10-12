@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimulatedDevice.Models
+﻿namespace RemoteProvider.Models
 {
-    interface IPropertyUpdateChanged
+    public interface IPropertyUpdateChanged
     {
         /// <summary>
         /// Обновляет данные сущности.

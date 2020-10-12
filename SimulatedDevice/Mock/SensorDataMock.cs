@@ -1,9 +1,7 @@
-﻿using RefrigeratorRemote.Models;
-using SimulatedDevice.Models;
+﻿using RemoteProvider.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using Tools;
 using Extensions;
 

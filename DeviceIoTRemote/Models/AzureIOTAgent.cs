@@ -2,12 +2,10 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimulatedDevice.Models
+namespace RemoteProvider.Models
 {
     /// <summary>
     /// Агент, для общения с AzureIOT.

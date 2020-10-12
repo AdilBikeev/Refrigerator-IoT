@@ -1,8 +1,6 @@
-﻿using SimulatedDevice.Mock;
-using SimulatedDevice.Models;
-using System;
+﻿using RemoteProvider.Models;
+using SimulatedDevice.Mock;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SimulatedDevice
 {
