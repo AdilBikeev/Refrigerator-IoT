@@ -48,7 +48,7 @@ namespace SimulatedDevice.Mock
         /// </summary>
         protected Encrypt encrypt = new Encrypt();
 
-        public SensorDataMock(int index, RefrigeratorBlock refrigeratorBlock)
+        public SensorDataMock(int index, BaseRefrigeratorBlock refrigeratorBlock)
         {
             var sensorName = this.mockHelper.GetRandomValue(this.sensorNames);
             this.SensorData = new SensorData
@@ -56,7 +56,7 @@ namespace SimulatedDevice.Mock
                 SensorUUID = encrypt.GetSHA512(index.ToString()),
                 Name = this.mockHelper.GetRandomValue(this.sensorNames),
                 Value = $"{(new Random().Next(0, 35))} {this.dictDataTypes[sensorName]}",
-                RefrigeratorBlock = refrigeratorBlock
+                RefrigeratorBlock = refrigeratorBlock.RefrigeratorBlock
             };
         }
     }

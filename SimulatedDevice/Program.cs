@@ -7,6 +7,7 @@ using RefrigeratorRemote.Models;
 using Tools;
 using SimulatedDevice.Mock;
 using SimulatedDevice.Models;
+using Newtonsoft.Json.Linq;
 
 namespace SimulatedDevice
 {
@@ -22,28 +23,37 @@ namespace SimulatedDevice
         /// <summary>
         /// Метод для отправки данных на Azure IoT.
         /// </summary>
-        private static async void SendDeviceToCloudMessagesAsync(BaseRefrigerator refrigerator, BaseRefrigeratorBlock refrigeratorBlock)
+        private static async void SendDeviceToCloudMessagesAsync(BaseRefrigerator refrigerator, 
+                                                                 BaseRefrigeratorBlock refrigeratorBlock, 
+                                                                 BaseSensorData sensorData)
         {
             while (true)
             {
                 // Передаваемое сообщение в Azure IoT
-                var messageString = JsonConvert.SerializeObject(refrigerator);
+                var messageString = JsonConvert.SerializeObject(new
+                {
+                    refrigerator,
+                    refrigeratorBlock,
+                    sensorData
+                });
+
                 var message = new Message(Encoding.ASCII.GetBytes(messageString));
 
                 // Send the telemetry message
                 //await _deviceClient.SendEventAsync(message);
-                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, JObject.Parse(messageString));
 
-                await Task.Delay(5000);
+                await Task.Delay(500);
             }
         }
+
         private static void Main(string[] args)
         {
             Console.WriteLine("IoT Hub Refrigerator - Simulated device. Ctrl-C to exit.\n");
 
             // Connect to the IoT hub using the MQTT protocol
             _deviceClient = DeviceClient.CreateFromConnectionString(connectionString, TransportType.Mqtt);
-            //SendDeviceToCloudMessagesAsync();
+ 
             Console.ReadLine();
         }
     }

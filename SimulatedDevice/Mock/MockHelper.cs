@@ -6,14 +6,12 @@ namespace SimulatedDevice.Mock
 {
     public class MockHelper
     {
-        private readonly Random random = new Random();
-
         /// <summary>
         /// Возращает рандомное значение из списка.
         /// </summary>
         /// <typeparam name="T">Тип данных списка.</typeparam>
         /// <param name="lst">Список значений.</param>
         /// <returns></returns>
-        public T GetRandomValue<T>(List<T> lstValues) => lstValues[random.Next(0, lstValues.Count - 1)];
+        public T GetRandomValue<T>(List<T> lstValues) => lstValues[(new Random()).Next(0, lstValues.Count - 1)];
     }
 }

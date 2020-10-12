@@ -24,13 +24,13 @@ namespace SimulatedDevice.Mock
         /// </summary>
         protected Encrypt encrypt = new Encrypt();
 
-        public RefrigeratorBlockMock(int index, Refrigerator refrigerator)
+        public RefrigeratorBlockMock(int index, BaseRefrigerator refrigerator)
         {
             this.RefrigeratorBlock = new RefrigeratorBlock
             {
                 BlockUUID = encrypt.GetSHA512(index.ToString()),
                 Name = this.mockHelper.GetRandomValue(this.blockNames),
-                Refrigerator = refrigerator
+                Refrigerator = refrigerator.Refrigerator
             };
         }
     }
