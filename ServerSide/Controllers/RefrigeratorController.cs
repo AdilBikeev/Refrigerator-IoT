@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Amqp.Framing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RefrigeratorServerSide.Data;
 using RefrigeratorServerSide.Models;
+using RemoteProvider.Models;
 
 namespace RefrigeratorServerSide.Controllers
 {
@@ -23,6 +28,21 @@ namespace RefrigeratorServerSide.Controllers
             var repo = this._placeRepo.GetPlaceRefrigerator();
 
             return Ok(repo);
+        }
+
+        // POST api/refrigerator
+        [HttpPost]
+        public ActionResult<string> UpdateRefrigeratorData(SensorData sensorData)
+        {
+            try
+            {
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefrigeratorData)}: {JObject.FromObject(sensorData).ToString()}");
+                return Ok();
+            }
+            catch (Exception exc)
+            {
+                return Forbid(exc.ToString());
+            }
         }
     }
 }

@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteProvider", "DeviceIoT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools", "Tools\Tools.csproj", "{64792C11-CFBD-4AD2-8D7F-209F29C88DE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.csproj", "{8733C5E0-0967-41D2-954F-16DF96CEE60C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Extensions.csproj", "{8733C5E0-0967-41D2-954F-16DF96CEE60C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CronJobAzureIoT", "CronJobAzureIoT\CronJobAzureIoT.csproj", "{8C8768F7-3F5A-4DEA-B672-414E3EA56504}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{8733C5E0-0967-41D2-954F-16DF96CEE60C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8733C5E0-0967-41D2-954F-16DF96CEE60C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8733C5E0-0967-41D2-954F-16DF96CEE60C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8768F7-3F5A-4DEA-B672-414E3EA56504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8768F7-3F5A-4DEA-B672-414E3EA56504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8768F7-3F5A-4DEA-B672-414E3EA56504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8768F7-3F5A-4DEA-B672-414E3EA56504}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

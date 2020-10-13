@@ -6,15 +6,21 @@ using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace RemoteProvider.Models
 {
     /// <summary>
     /// Агент, для общения с AzureIOT.
     /// </summary>
-    public class AzureIOTAgent
+    public class AzureIOTAgent : IAzureIOTClient, IAzureIOTServer
     {
         private readonly DeviceClient _deviceClient;
+
+        /// <summary>
+        /// Кодировка для кодирвоания сообщения.
+        /// </summary>
+        private readonly Encoding encoderMessage = Encoding.UTF8;
 
         /// <summary>
         /// Интервал в секундах для повторение отправки данных на Azure IoT.
@@ -38,6 +44,16 @@ namespace RemoteProvider.Models
         private const string IotHubSasKeyName = "service";
         private const string IotHubSasKey = "SeST5mFbdK3284heuL1Tkzi7b35WbGzieuWJDXohcBA=";
 
+        /// <summary>
+        /// Адрес сервера.
+        /// </summary>
+        private const string _serverUrl = "https://localhost:5001/api/refrigerator";
+
+        private string BuildEventHubsConnectionString(string eventHubsEndpoint,
+                                                     string iotHubSharedKeyName,
+                                                     string iotHubSharedKey) =>
+    $"Endpoint={ eventHubsEndpoint };SharedAccessKeyName={ iotHubSharedKeyName };SharedAccessKey={ iotHubSharedKey }";
+
         public AzureIOTAgent()
         {
             // Connect to the IoT hub using the MQTT protocol
@@ -47,14 +63,14 @@ namespace RemoteProvider.Models
         /// <summary>
         /// Метод для отправки данных на Azure IoT.
         /// </summary>
-        public async void SendDeviceToCloudMessagesAsync(BaseSensorData sensorData)
+        public virtual async void SendDeviceToCloudMessagesAsync(BaseSensorData sensorData)
         {
             while (true)
             {
                 // Передаваемое сообщение в Azure IoT
                 var messageString = JsonConvert.SerializeObject(sensorData);
 
-                var message = new Message(Encoding.ASCII.GetBytes(messageString));
+                var message = new Message(this.encoderMessage.GetBytes(messageString));
 
                 #if (DEBUG)
                     Console.WriteLine("DEBUG: {0} > Sending message: {1}", DateTime.Now, JObject.Parse(messageString));
@@ -72,17 +88,14 @@ namespace RemoteProvider.Models
             }
         }
 
-        private static string BuildEventHubsConnectionString(string eventHubsEndpoint,
-                                                     string iotHubSharedKeyName,
-                                                     string iotHubSharedKey) =>
-    $"Endpoint={ eventHubsEndpoint };SharedAccessKeyName={ iotHubSharedKeyName };SharedAccessKey={ iotHubSharedKey }";
+
 
         /// <summary>
         /// Метод для чтения сообщения из реестра Azure IoT.
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<SensorData> ReceiveMessagesFromDeviceAsync()
+        public virtual async Task ReceiveMessagesFromDeviceAsync(CancellationToken cancellationToken)
         {
             string connectionString = BuildEventHubsConnectionString(EventHubsCompatibleEndpoint, IotHubSasKeyName, IotHubSasKey);
 
@@ -96,11 +109,21 @@ namespace RemoteProvider.Models
                 {
                     Console.WriteLine("Message received on partition {0}:", partitionEvent.Partition.PartitionId);
 
+                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
                     // Переданное IoT устройством сообщение
-                    string data = Encoding.UTF8.GetString(partitionEvent.Data.Body.ToArray());
+                    string data = this.encoderMessage.GetString(partitionEvent.Data.Body.ToArray());
                     Console.WriteLine("\t{0}:", data);
 
-                    return JsonConvert.DeserializeObject<SensorData>(data);
+                    // Кастыль из-за неправильного сформированного реестра
+                    var sensorData = JObject.Parse(data)[nameof(SensorData)]
+                                                .Value<JObject>()
+                                                .ToString();
+
+                    HttpClient client = new HttpClient();
+                    var content = new StringContent(sensorData, Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync(_serverUrl, content);
+                    await response.Content.ReadAsStringAsync();
                 }
             }
             catch (TaskCanceledException)
@@ -108,8 +131,6 @@ namespace RemoteProvider.Models
                 // This is expected when the token is signaled; it should not be considered an
                 // error in this scenario.
             }
-
-            return null;
         }
     }
 }
