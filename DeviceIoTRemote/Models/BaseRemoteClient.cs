@@ -28,9 +28,9 @@ namespace RemoteProvider.Models
 
         public BaseRemoteClient FromXml(XmlDocument xml)
         {
-            using (var stringReader = new System.IO.StringReader(xml.ToString()))
+            using (var stringReader = new System.IO.StringReader(xml.InnerXml))
             {
-                var serializer = new XmlSerializer(typeof(BaseRemoteClient));
+                var serializer = new XmlSerializer(this.GetType());
                 return (BaseRemoteClient)serializer.Deserialize(stringReader);
             }
         }
