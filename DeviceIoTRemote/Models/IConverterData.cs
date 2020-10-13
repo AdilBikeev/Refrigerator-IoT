@@ -10,8 +10,8 @@ namespace RemoteProvider.Models
     public interface IConverterData
     {
         /// <summary>
-        /// Возвращает данные в формате <see cref="XmlDocument"/>.
+        /// Возвращает данные в формате <typeparamref name="T"/>.
         /// </summary>
-        public XmlDocument ConvertData(); 
+        public T ConvertData<T>();
     }
 }

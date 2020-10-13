@@ -6,19 +6,29 @@ using System.Xml.Serialization;
 
 namespace RemoteProvider.Models
 {
+    /// <summary>
+    /// Описывает класс клиентского приложения и действия над его данными.
+    /// </summary>
     public abstract class BaseRemoteClient : IConverterData
     {
-        public XmlDocument ConvertData()
+        public T ConvertData<T>()
         {
-            using (var stringwriter = new System.IO.StringWriter())
+            if (typeof(T) == typeof(XmlDocument))
             {
-                var serializer = new XmlSerializer(this.GetType());
-                serializer.Serialize(stringwriter, this);
+                using (var stringwriter = new System.IO.StringWriter())
+                {
+                    var serializer = new XmlSerializer(this.GetType());
+                    serializer.Serialize(stringwriter, this);
 
-                var xmlData = new XmlDocument();
-                xmlData.LoadXml(stringwriter.ToString());
+                    var xmlData = new XmlDocument();
+                    xmlData.LoadXml(stringwriter.ToString());
 
-                return xmlData;
+                    return (T)Convert.ChangeType(xmlData, typeof(T));
+                }
+            }
+            else
+            {
+                throw new Exception($"Нельзя привести данные к типу {typeof(T)}");
             }
         }
     }
