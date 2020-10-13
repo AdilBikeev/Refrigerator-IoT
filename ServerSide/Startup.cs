@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RefrigeratorServerSide.Data;
+using RefrigeratorServerSide.Data.RefriRepo;
 
 namespace RefrigeratorServerSide
 {
@@ -35,11 +36,12 @@ namespace RefrigeratorServerSide
             var foo = Environment.GetEnvironmentVariables();
             if (this.IsDevelopment)
             {
-                services.AddScoped<IPlaceRepo, MockPlaceRepo>();                
+                //services.AddScoped<IPlaceRepo, MockPlaceRepo>();                
             }
             else 
             {
-                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();    
+                //services.AddScoped<IPlaceRepo, SqlPlaceRepo>();    
+                services.AddScoped<IRefriRepo, SqlReftiRepo>();    
             }
 
 

@@ -5,6 +5,7 @@ using Microsoft.Azure.Amqp.Framing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RefrigeratorServerSide.Data;
+using RefrigeratorServerSide.Data.RefriRepo;
 using RefrigeratorServerSide.Models;
 using RemoteProvider.Models;
 
@@ -15,10 +16,13 @@ namespace RefrigeratorServerSide.Controllers
     public class RefrigeratorController: ControllerBase
     {
         private readonly IPlaceRepo _placeRepo;
+        private readonly IRefriRepo _refriRepo;
 
-        public RefrigeratorController(IPlaceRepo placeRepo)
+        public RefrigeratorController(//IPlaceRepo placeRepo, 
+            IRefriRepo refriRepo)
         {
-            this._placeRepo = placeRepo;
+            //this._placeRepo = placeRepo;
+            this._refriRepo = refriRepo;
         }
 
         // GET api/refrigerator
@@ -37,6 +41,8 @@ namespace RefrigeratorServerSide.Controllers
             try
             {
                 Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefrigeratorData)}: {JObject.FromObject(sensorData).ToString()}");
+
+                _refriRepo.AddOrUpdateReftInfo(sensorData);
                 return Ok();
             }
             catch (Exception exc)
