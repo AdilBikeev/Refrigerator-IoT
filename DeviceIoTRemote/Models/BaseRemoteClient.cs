@@ -9,8 +9,31 @@ namespace RemoteProvider.Models
     /// <summary>
     /// Описывает класс клиентского приложения и действия над его данными.
     /// </summary>
-    public abstract class BaseRemoteClient : IConverterData
+    public abstract class BaseRemoteClient : IConverterData<BaseRemoteClient>
     {
+        public BaseRemoteClient DeserializeData<T>(T objData)
+        {
+            if (typeof(T) == typeof(XmlDocument))
+            {
+                return this.FromXml(
+                    (XmlDocument)Convert.ChangeType(objData, typeof(XmlDocument))
+                );
+            }
+            else
+            {
+                throw new Exception($"Нельзя привести данные к типу {typeof(T)}");
+            }
+        }
+
+        public BaseRemoteClient FromXml(XmlDocument xml)
+        {
+            using (var stringReader = new System.IO.StringReader(xml.ToString()))
+            {
+                var serializer = new XmlSerializer(typeof(BaseRemoteClient));
+                return (BaseRemoteClient)serializer.Deserialize(stringReader);
+            }
+        }
+
         public T SerializeData<T>()
         {
             if (typeof(T) == typeof(XmlDocument))
