@@ -12,6 +12,18 @@ namespace RemoteProvider.Models
     /// </summary>
     public abstract class BaseRemoteClient : IConverterData<BaseRemoteClient>
     {
+        public T SerializeData<T>()
+        {
+            if (typeof(T) == typeof(XmlDocument))
+            {
+                return (T)Convert.ChangeType(this.ToXml(), typeof(T));
+            }
+            else
+            {
+                throw new Exception($"Нельзя привести данные к типу {typeof(T)}");
+            }
+        }
+
         public BaseRemoteClient DeserializeData<T>(T objData)
         {
             if (typeof(T) == typeof(XmlDocument))
@@ -32,18 +44,6 @@ namespace RemoteProvider.Models
             {
                 var serializer = new XmlSerializer(this.GetType());
                 return (BaseRemoteClient)serializer.Deserialize(stringReader);
-            }
-        }
-
-        public T SerializeData<T>()
-        {
-            if (typeof(T) == typeof(XmlDocument))
-            {
-                return (T)Convert.ChangeType(this.ToXml(), typeof(T));
-            }
-            else
-            {
-                throw new Exception($"Нельзя привести данные к типу {typeof(T)}");
             }
         }
 
