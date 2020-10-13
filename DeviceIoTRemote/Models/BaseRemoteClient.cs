@@ -23,7 +23,7 @@ namespace RemoteProvider.Models
             }
         }
 
-        public XmlDocument ToXml<T>()
+        public XmlDocument ToXml()
         {
             using (var stringwriter = new System.IO.StringWriter())
             {

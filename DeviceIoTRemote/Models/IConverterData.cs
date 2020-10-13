@@ -17,7 +17,6 @@ namespace RemoteProvider.Models
         /// <summary>
         /// Возвращает данные в формате XmlDocument.
         /// </summary>
-        /// <typeparam name="T">Тип данных объекта.</typeparam>
-        public XmlDocument ToXml<T>();
+        public XmlDocument ToXml();
     }
 }
