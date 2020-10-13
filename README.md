@@ -2,6 +2,20 @@
 
 # Требования для запуска сервера
 1. Установить утилиту `dotnet`
+2. Установить MSSQL
+3. Вставить свои настройки в `private readonly string` поля для взаимодействия с Azure в классе `AzureIOTAgent`
+
+# Как запустить симулятор устройства
+1. Заходим через консоль в папку с проектом `Refrigerator-IoT\SimulatedDevice\SimulatedDevice.csproj`
+2. Пишем в консоли `dotnet run`
+## Примечание
+    * Для настройки симулятора устройства используйте приватные поля класса Startup: countRefri, countRefriBLock, countsensorData
+    * Для добавления или изменения рандомных значений используйте классы, лежайшие в дириктории Mock
+    * Установка частоты отправки сообщений на Azure IoT производится с помощью поля `perSeconds` класса `AzureIOTAgent`
+
+# Как запустить CronJob для отправки данных с Azure IoT на сервер для обновления данных в БД
+1. Заходим через консоль в папку с проектом `Refrigerator-IoT\CronJobAzureIoT\CronJobAzureIoT.csproj`
+2. Пишем в консоли `dotnet run`
 
 # Как запустить сервер ?
 1. Заходим через консоль в папку с проектом `RefrigeratorServerSide.csproj`

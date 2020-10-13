@@ -18,10 +18,9 @@ namespace RefrigeratorServerSide.Controllers
         private readonly IPlaceRepo _placeRepo;
         private readonly IRefriRepo _refriRepo;
 
-        public RefrigeratorController(//IPlaceRepo placeRepo, 
-            IRefriRepo refriRepo)
+        public RefrigeratorController(IPlaceRepo placeRepo, IRefriRepo refriRepo)
         {
-            //this._placeRepo = placeRepo;
+            this._placeRepo = placeRepo;
             this._refriRepo = refriRepo;
         }
 
