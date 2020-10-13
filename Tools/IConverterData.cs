@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using Newtonsoft.Json.Linq;
+using System.Xml;
 
 namespace Tools
 {
@@ -15,7 +16,7 @@ namespace Tools
         public T SerializeData<T>();
 
         /// <summary>
-        /// Возвращает данные в формате XmlDocument.
+        /// Возвращает данные в формате <see cref="XmlDocument"/>.
         /// </summary>
         public XmlDocument ToXml();
 
@@ -23,7 +24,17 @@ namespace Tools
         /// Возвращает дессириализованный из <see cref="XmlDocument"/> объект текущего класса.
         /// </summary>
         /// <param name="xml">Данные в <see cref="XmlDocument"/> формате.</param>
-        /// <returns></returns>
         public OType FromXml(XmlDocument xml);
+
+        /// <summary>
+        /// Возвращает данные в формате <see cref="JObject"/>.
+        /// </summary>
+        public JObject ToJson();
+
+        /// <summary>
+        /// Десериализует json в объект текущего класса. 
+        /// </summary>
+        /// <param name="json">Json для десериализации.</param>
+        public OType FromJson(JObject json);
     }
 }

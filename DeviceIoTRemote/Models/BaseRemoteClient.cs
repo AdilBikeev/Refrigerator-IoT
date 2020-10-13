@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -18,6 +21,10 @@ namespace RemoteProvider.Models
             {
                 return (T)Convert.ChangeType(this.ToXml(), typeof(T));
             }
+            else if(typeof(T) == typeof(JObject))
+            {
+                return (T)Convert.ChangeType(this.ToJson(), typeof(T));
+            }
             else
             {
                 throw new Exception($"Нельзя привести данные к типу {typeof(T)}");
@@ -30,6 +37,12 @@ namespace RemoteProvider.Models
             {
                 return this.FromXml(
                     (XmlDocument)Convert.ChangeType(objData, typeof(XmlDocument))
+                );
+            }
+            else if (typeof(T) == typeof(JObject))
+            {
+                return this.FromJson(
+                    (JObject)Convert.ChangeType(objData, typeof(JObject))
                 );
             }
             else
@@ -60,5 +73,9 @@ namespace RemoteProvider.Models
                 return xmlData;
             }
         }
+
+        public JObject ToJson() => JObject.Parse(JsonConvert.SerializeObject(this));
+
+        public BaseRemoteClient FromJson(JObject json) => (BaseRemoteClient)JsonConvert.DeserializeObject(json.ToString(), this.GetType());
     }
 }
