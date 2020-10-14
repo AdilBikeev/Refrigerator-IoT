@@ -54,8 +54,8 @@ namespace RemoteProvider.Models
             }
             else if (typeof(T) == typeof(ContentResult))
             {
-                return this.FromJson(
-                    (JObject)Convert.ChangeType(objData, typeof(ContentResult))
+                return this.FromHtml(
+                    (ContentResult)Convert.ChangeType(objData, typeof(ContentResult))
                 );
             }
             else
