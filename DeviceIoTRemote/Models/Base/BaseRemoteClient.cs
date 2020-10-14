@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using Tools;
@@ -25,6 +28,10 @@ namespace RemoteProvider.Models
             {
                 return (T)Convert.ChangeType(this.ToJson(), typeof(T));
             }
+            else if (typeof(T) == typeof(ContentResult))
+            {
+                return (T)Convert.ChangeType(this.ToHtml(), typeof(T));
+            }
             else
             {
                 throw new Exception($"Нельзя привести данные к типу {typeof(T)}");
@@ -43,6 +50,12 @@ namespace RemoteProvider.Models
             {
                 return this.FromJson(
                     (JObject)Convert.ChangeType(objData, typeof(JObject))
+                );
+            }
+            else if (typeof(T) == typeof(ContentResult))
+            {
+                return this.FromJson(
+                    (JObject)Convert.ChangeType(objData, typeof(ContentResult))
                 );
             }
             else
@@ -77,5 +90,28 @@ namespace RemoteProvider.Models
         public JObject ToJson() => JObject.Parse(JsonConvert.SerializeObject(this));
 
         public BaseRemoteClient FromJson(JObject json) => (BaseRemoteClient)JsonConvert.DeserializeObject(json.ToString(), this.GetType());
+
+        public ContentResult ToHtml()
+        {
+            string body = this.ToXml().InnerXml;
+
+            return new ContentResult
+            {
+                ContentType = "text/html",
+                StatusCode = (int)HttpStatusCode.OK,
+                Content = $"<html><body>{body}</body></html>"
+            };
+        }
+
+        public BaseRemoteClient FromHtml(ContentResult html)
+        {
+            var xml = new XmlDocument();
+            var regexp = new Regex("<[^<html><body>].+[^</body></html>]>");
+            xml.LoadXml(
+                regexp.Match(html.Content).Value
+            );
+
+            return this.FromXml(xml);
+        }
     }
 }

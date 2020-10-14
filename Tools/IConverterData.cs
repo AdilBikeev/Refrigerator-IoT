@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Xml;
 
 namespace Tools
@@ -36,5 +37,16 @@ namespace Tools
         /// </summary>
         /// <param name="json">Json для десериализации.</param>
         public OType FromJson(JObject json);
+
+        /// <summary>
+        /// Возвращает данные в формате <see cref="ContentResult"/>.
+        /// </summary>
+        public ContentResult ToHtml();
+
+        /// <summary>
+        /// Десериализует HTML в объект текущего класса. 
+        /// </summary>
+        /// <param name="ContentResult">HTML для десериализации.</param>
+        public OType FromHtml(ContentResult html);
     }
 }
