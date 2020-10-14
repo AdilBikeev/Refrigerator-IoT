@@ -1,4 +1,6 @@
-﻿namespace RemoteProvider.Models
+﻿using RemoteProvider.Interfaces;
+
+namespace RemoteProvider.Models
 {
     public abstract class BaseSensorData : IPropertyUpdateChanged
     {
