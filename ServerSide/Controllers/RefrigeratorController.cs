@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Amqp.Framing;
 using Newtonsoft.Json;

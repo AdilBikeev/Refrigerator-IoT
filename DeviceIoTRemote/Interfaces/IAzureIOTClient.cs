@@ -1,9 +1,10 @@
-﻿using System;
+﻿using RemoteProvider.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RemoteProvider.Models
+namespace RemoteProvider.Interfaces
 {
     public interface IAzureIOTClient
     {

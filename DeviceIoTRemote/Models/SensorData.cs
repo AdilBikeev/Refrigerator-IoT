@@ -6,7 +6,7 @@ namespace RemoteProvider.Models
     /// <summary>
     /// Класс, описывающий данные сенсора.
     /// </summary>
-    public class SensorData
+    public class SensorData : BaseRemoteClient
     {
         [Key]
         /// <summary>

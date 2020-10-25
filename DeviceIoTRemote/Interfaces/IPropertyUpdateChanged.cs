@@ -1,4 +1,4 @@
-﻿namespace RemoteProvider.Models
+﻿namespace RemoteProvider.Interfaces
 {
     public interface IPropertyUpdateChanged
     {

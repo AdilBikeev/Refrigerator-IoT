@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Http;
+using RemoteProvider.Interfaces;
 
 namespace RemoteProvider.Models
 {
