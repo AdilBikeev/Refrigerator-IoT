@@ -4,6 +4,6 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup>
-    <ActiveDebugProfile>RefrigeratorRelease</ActiveDebugProfile>
+    <ActiveDebugProfile>RefrigeratorDebug</ActiveDebugProfile>
   </PropertyGroup>
 </Project>
