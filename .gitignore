@@ -2,3 +2,6 @@
 obj/
 
 .vscode/
+
+bin/
+/.vs
