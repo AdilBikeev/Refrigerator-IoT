@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Amqp.Framing;
 using Newtonsoft.Json;
@@ -25,8 +26,15 @@ namespace RefrigeratorServerSide.Controllers
             this._refriRepo = refriRepo;
         }
 
+        /// <summary>
+        /// Возвращает все места в холодильниках.
+        /// </summary>
+        /// <response code="200">Данные успешно возвращены.</response>
+        /// <response code="500">Отсутствуют данные в БД.</response>
         // GET api/refrigerator
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<Dictionary<string, List<Place>>> GetAllPlaces()
         {
             var repo = this._placeRepo.GetPlaceRefrigerator();
@@ -34,8 +42,16 @@ namespace RefrigeratorServerSide.Controllers
             return Ok(repo);
         }
 
+        /// <summary>
+        /// Обновляет данные сенсоров холодильника.
+        /// </summary>
+        /// <param name="sensorData">Данные сенсора.</param>
+        /// <response code="200">Данные успешно обновлены в БД.</response>
+        /// <response code="403">Процесс онбволения данных с холодильника в БД завершились исключением.</response>
         // POST api/refrigerator
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult<string> UpdateRefrigeratorData(SensorData sensorData)
         {
             try
