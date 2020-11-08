@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Ex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CronJobAzureIoT", "CronJobAzureIoT\CronJobAzureIoT.csproj", "{8C8768F7-3F5A-4DEA-B672-414E3EA56504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools.Test", "Tools.Test\Tools.Test.csproj", "{2A819621-618E-4AF4-BC92-636180FD5100}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tools.Test", "Tools.Test\Tools.Test.csproj", "{2A819621-618E-4AF4-BC92-636180FD5100}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E90A9F17-E1DD-4928-BE44-1F1AC18CD741}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0DE828AD-FBE5-424A-9126-3222E38577AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{2A819621-618E-4AF4-BC92-636180FD5100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A819621-618E-4AF4-BC92-636180FD5100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A819621-618E-4AF4-BC92-636180FD5100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DE828AD-FBE5-424A-9126-3222E38577AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DE828AD-FBE5-424A-9126-3222E38577AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DE828AD-FBE5-424A-9126-3222E38577AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DE828AD-FBE5-424A-9126-3222E38577AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
