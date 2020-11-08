@@ -29,7 +29,8 @@ namespace RefrigeratorServerSide.Controllers
             this._refriRepo = refriRepo;
             this._mapper = mapper;
         }
-
+        
+        #region HttpGet
         /// <summary>
         /// Возвращает все места в холодильниках.
         /// </summary>
@@ -44,31 +45,6 @@ namespace RefrigeratorServerSide.Controllers
             var repo = this._placeRepo.GetPlaceRefrigerator();
 
             return Ok(repo);
-        }
-
-        /// <summary>
-        /// Обновляет данные сенсоров холодильника.
-        /// </summary>
-        /// <param name="sensorData">Данные сенсора.</param>
-        /// <response code="200">Данные успешно обновлены в БД.</response>
-        /// <response code="403">Процесс онбволения данных с холодильника в БД завершились исключением.</response>
-        // POST api/refrigerator
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<string> UpdateRefrigeratorData(SensorData sensorData)
-        {
-            try
-            {
-                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefrigeratorData)}: {JObject.FromObject(sensorData).ToString()}");
-
-                _refriRepo.AddOrUpdateReftInfo(sensorData);
-                return Ok();
-            }
-            catch (Exception exc)
-            {
-                return Forbid(exc.ToString());
-            }
         }
 
         /// <summary>
@@ -99,5 +75,33 @@ namespace RefrigeratorServerSide.Controllers
                 return Forbid(exc.ToString());
             }
         }
+        #endregion
+
+        #region HttpPost
+        /// <summary>
+        /// Обновляет данные сенсоров холодильника.
+        /// </summary>
+        /// <param name="sensorData">Данные сенсора.</param>
+        /// <response code="200">Данные успешно обновлены в БД.</response>
+        /// <response code="403">Процесс онбволения данных с холодильника в БД завершились исключением.</response>
+        // POST api/refrigerator
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult<string> UpdateRefrigeratorData(SensorData sensorData)
+        {
+            try
+            {
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefrigeratorData)}: {JObject.FromObject(sensorData).ToString()}");
+
+                _refriRepo.AddOrUpdateReftInfo(sensorData);
+                return Ok();
+            }
+            catch (Exception exc)
+            {
+                return Forbid(exc.ToString());
+            }
+        }
+        #endregion
     }
 }
