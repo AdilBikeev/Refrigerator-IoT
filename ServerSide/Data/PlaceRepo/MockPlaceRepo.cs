@@ -7,7 +7,7 @@ namespace RefrigeratorServerSide.Data
     {
         public Dictionary<string, List<Place>> GetPlaceRefrigerator()
         {
-            return new Dictionary<string, List<Place>>
+            return new()
             {
                 [nameof(PlaceName.Top)] = new List<Place> {
                     new Place { placeId = 1, name = nameof(PlaceName.Top), locationId = (int)PlaceName.Top, pressure = 0, foodType = nameof(FoodType.Water) },
