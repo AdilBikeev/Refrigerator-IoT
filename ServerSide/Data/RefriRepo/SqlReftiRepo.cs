@@ -48,5 +48,18 @@ namespace RefrigeratorServerSide.Data.RefriRepo
 
             this._context.SaveChanges();
         }
+
+        public Refrigerator GetRefrigerator(string refrigeratorUUID) => this._context
+        .Refrigerator.FirstOrDefault(
+            item => item.RefrigeratorUUID.Equals(refrigeratorUUID)
+        );
+
+        public IList<string> GetRefrigeratorBlocksUUID(string refrigeratorUUID) => this._context
+        .RefrigeratorBlock.Where(
+            block => block.Refrigerator
+                          .RefrigeratorUUID.Equals(refrigeratorUUID)
+        )
+        .Select(block => block.BlockUUID)
+        .ToList();
     }
 }

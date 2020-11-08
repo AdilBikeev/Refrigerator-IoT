@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RefrigeratorServerSide.Data;
 using RefrigeratorServerSide.Data.RefriRepo;
+using AutoMapper;
 
 namespace RefrigeratorServerSide
 {
@@ -54,6 +55,8 @@ namespace RefrigeratorServerSide
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
