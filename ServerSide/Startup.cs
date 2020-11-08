@@ -36,12 +36,12 @@ namespace RefrigeratorServerSide
             var foo = Environment.GetEnvironmentVariables();
             if (this.IsDevelopment)
             {
-                services.AddScoped<IPlaceRepo, MockPlaceRepo>();                
+                services.AddSingleton<IPlaceRepo, MockPlaceRepo>();                
             }
             else 
             {
-                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();    
-                services.AddScoped<IRefriRepo, SqlReftiRepo>();    
+                services.AddSingleton<IPlaceRepo, SqlPlaceRepo>();    
+                services.AddSingleton<IRefriRepo, SqlReftiRepo>();    
             }
 
 
