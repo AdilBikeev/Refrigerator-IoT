@@ -95,7 +95,37 @@ namespace RefrigeratorServerSide.Controllers
                 Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(CreateRefrigerator)}: {JObject.FromObject(refrigerator).ToString()}");
                 var modelRefri = _mapper.Map<Refrigerator>(refrigerator);
                 _refriRepo.CreateRefrigerator(modelRefri);
+                _refriRepo.SaveChanges();
                 _refriRepo.UpdBlocksRefriData(refrigerator.blockIDS, modelRefri);
+                _refriRepo.SaveChanges();
+                return Ok();
+            }
+            catch (Exception exc)
+            {
+                return Forbid(exc.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Обновляет данные холодильника.
+        /// </summary>
+        /// <param name="refriDto">Обновленные данные холодильника.</param>
+        /// <param name="refrigeratorUUID">UUID холодильника.</param>
+        /// <response code="200">Данные успешно обновлены.</response>
+        /// <response code="403">Процесс обновления данных холодильника завершился ошибкой.</response>
+        // POST api/refrigerator/{refrigeratorUUID}
+        [HttpPost]
+        [Route("{refrigeratorUUID}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult UpdateRefrigerator([FromBody] RefriReeadDto refriDto, [FromRoute] string refrigeratorUUID)
+        {
+            try
+            {
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefrigerator)}: refriDto={JObject.FromObject(refriDto)}, refrigeratorUUID={refrigeratorUUID}");
+
+                _refriRepo.UpdateRefriData(refriDto, refrigeratorUUID);
+                _refriRepo.SaveChanges();
                 return Ok();
             }
             catch (Exception exc)

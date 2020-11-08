@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using RefrigeratorServerSide.Dtos;
 using RemoteProvider.Models;
 using System;
 using System.Collections.Generic;
@@ -11,12 +13,16 @@ namespace RefrigeratorServerSide.Data.RefriRepo
     public class SqlReftiRepo : IRefriRepo
     {
         private readonly RefrigeratorContext _context;
+        private readonly IMapper _mapper;
         private readonly Encrypt _encrypt = new();
 
-        public SqlReftiRepo(RefrigeratorContext context)
+        public SqlReftiRepo(RefrigeratorContext context, IMapper mapper)
         {
             this._context = context;
+            this._mapper = mapper;
         }
+
+        public bool SaveChanges() => this._context.SaveChanges() >= 0;
 
         #region Refrigerator
         public void CreateRefrigerator(Refrigerator refrigerator)
@@ -44,6 +50,26 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         )
         .Select(block => block.BlockUUID)
         .ToList();
+
+        public void UpdateRefriData(RefriReeadDto refrigerator, string refrigeratorUUID)
+        {
+            var refriModel = _context
+            .Refrigerator
+            .FirstOrDefault(item =>
+                item.RefrigeratorUUID.Equals(refrigeratorUUID)
+             );
+
+
+            if (refriModel is not null)
+            {
+                refriModel = _mapper.Map<Refrigerator>(refrigerator);
+                this.UpdBlocksRefriData(refrigerator.blockIDS, refriModel);
+            }
+            else
+            {
+                throw new Exception("Холодильник с указанными данными не существует !");
+            }
+        }
         #endregion
 
         #region RegrigeratorBlocks
