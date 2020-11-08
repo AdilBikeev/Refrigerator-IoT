@@ -8,11 +8,12 @@ namespace RefrigeratorServerSide.Data.RefriRepo
 {
     public interface IRefriRepo
     {
+        #region Refrigerator
         /// <summary>
-        /// Добавляет или обновляет информацию о сенсоре.
+        /// Добавляет в БД инф. о холодильнике.
         /// </summary>
-        /// <param name="sensorData">Сенсор на блоке холодильника.</param>
-        public void AddOrUpdateReftInfo(SensorData sensorData);
+        /// <param name="refrigerator">Данные холодильника.</param>
+        public void CreateRefrigerator(Refrigerator refrigerator);
 
         /// <summary>
         /// Возвращает инф. о холодильнике по его UUID.
@@ -25,5 +26,15 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         /// </summary>
         /// <param name="refrigeratorUUID">UUID холодильника.</param>
         public IList<string> GetRefrigeratorBlocksUUID(string refrigeratorUUID);
+        #endregion
+
+        #region RegrigeratorBlocks
+        /// <summary>
+        /// Обновление указателя на холодильник заданных блоков.
+        /// </summary>
+        /// <param name="blocksUUID">Список ID блоков, находящихся в холодильнике.</param>
+        /// <param name="refrigerator">Холодильник, в которую переместили блоки.</param>
+        public void UpdBlocksRefriData(IList<string> blocksUUID, Refrigerator refrigerator);
+        #endregion
     }
 }

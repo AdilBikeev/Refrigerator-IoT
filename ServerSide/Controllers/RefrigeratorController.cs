@@ -62,7 +62,7 @@ namespace RefrigeratorServerSide.Controllers
         {
             try
             {
-                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefrigeratorData)}: refrigeratorUUID={refrigeratorUUID}");
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(GetRefrigerator)}: refrigeratorUUID={refrigeratorUUID}");
 
                 var refrigerator = _refriRepo.GetRefrigerator(refrigeratorUUID);
                 var refriModel = _mapper.Map<RefriReeadDto>(refrigerator);
@@ -79,22 +79,23 @@ namespace RefrigeratorServerSide.Controllers
 
         #region HttpPost
         /// <summary>
-        /// Обновляет данные сенсоров холодильника.
+        /// Добавляет в БД инф. о новом холодильнике.
         /// </summary>
-        /// <param name="sensorData">Данные сенсора.</param>
-        /// <response code="200">Данные успешно обновлены в БД.</response>
-        /// <response code="403">Процесс онбволения данных с холодильника в БД завершились исключением.</response>
+        /// <param name="refrigerator">Данные холодильника.</param>
+        /// <response code="200">Инф. о холодильнике успешно добавлена в БД.</response>
+        /// <response code="403">Процесс добавления данных о холодильнике в БД завершились ошибкой.</response>
         // POST api/refrigerator
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<string> UpdateRefrigeratorData(SensorData sensorData)
+        public ActionResult CreateRefrigerator(RefriReeadDto refrigerator)
         {
             try
             {
-                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefrigeratorData)}: {JObject.FromObject(sensorData).ToString()}");
-
-                _refriRepo.AddOrUpdateReftInfo(sensorData);
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(CreateRefrigerator)}: {JObject.FromObject(refrigerator).ToString()}");
+                var modelRefri = _mapper.Map<Refrigerator>(refrigerator);
+                _refriRepo.CreateRefrigerator(modelRefri);
+                _refriRepo.UpdBlocksRefriData(refrigerator.blockIDS, modelRefri);
                 return Ok();
             }
             catch (Exception exc)

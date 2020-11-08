@@ -1,52 +1,35 @@
-﻿using RemoteProvider.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using RemoteProvider.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tools;
 
 namespace RefrigeratorServerSide.Data.RefriRepo
 {
     public class SqlReftiRepo : IRefriRepo
     {
         private readonly RefrigeratorContext _context;
+        private readonly Encrypt _encrypt = new();
 
         public SqlReftiRepo(RefrigeratorContext context)
         {
             this._context = context;
         }
 
-        public void AddOrUpdateReftInfo(SensorData sensorData)
+        #region Refrigerator
+        public void CreateRefrigerator(Refrigerator refrigerator)
         {
-            var sensors = this._context.SensorData;
-            var blocks = this._context.RefrigeratorBlock;
-            var reftis = this._context.Refrigerator;
-
-            var refri = reftis.FirstOrDefault(refr => refr.RefrigeratorUUID == sensorData.RefrigeratorBlock
-                                                                                         .Refrigerator
-                                                                                         .RefrigeratorUUID);
-            if (refri == null)
+            if (!_context.Refrigerator.Contains(refrigerator))
             {
-                reftis.Add(sensorData.RefrigeratorBlock.Refrigerator);
-            }
-
-            var block = blocks.FirstOrDefault(item => item.BlockUUID == sensorData.RefrigeratorBlock
-                                                                                  .BlockUUID);
-            if (block == null)
-            {
-                blocks.Add(sensorData.RefrigeratorBlock);
-            }
-            
-            var sensor = sensors.FirstOrDefault(sens => sens.SensorUUID == sensorData.SensorUUID);
-            if (sensor != null)
-            {
-                sensor.Value = sensorData.Value;
+                refrigerator.RefrigeratorUUID = _encrypt.GetSHA512(_context.Refrigerator.Count().ToString());
+                _context.Refrigerator.Add(refrigerator);
             }
             else
             {
-                sensors.Add(sensorData);
+                throw new Exception("Холодильник с указанными данными уже существует !");
             }
-
-            this._context.SaveChanges();
         }
 
         public Refrigerator GetRefrigerator(string refrigeratorUUID) => this._context
@@ -61,5 +44,14 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         )
         .Select(block => block.BlockUUID)
         .ToList();
+        #endregion
+
+        #region RegrigeratorBlocks
+        public void UpdBlocksRefriData(IList<string> blocksUUID, Refrigerator refrigerator) =>
+            this._context
+                .RefrigeratorBlock
+                .Where(block => blocksUUID.Contains(block.BlockUUID))
+                .ForEachAsync(block => block.Refrigerator = refrigerator);
+        #endregion
     }
 }

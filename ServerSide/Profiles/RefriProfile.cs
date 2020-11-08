@@ -16,6 +16,7 @@ namespace RefrigeratorServerSide.Profiles
         public RefriProfile()
         {
             CreateMap<Refrigerator, RefriReeadDto>();
+            CreateMap<RefriReeadDto, Refrigerator>();
         }
     }
 }

@@ -36,16 +36,19 @@ namespace RefrigeratorServerSide
                 (Configuration.GetConnectionString("RefrigeratorConnection")));
 
             Console.WriteLine($"{nameof(IsDevelopment)}={IsDevelopment}");
-            var foo = Environment.GetEnvironmentVariables();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             if (this.IsDevelopment)
             {
-                services.AddSingleton<IPlaceRepo, MockPlaceRepo>();                
+                services.AddScoped<IPlaceRepo, MockPlaceRepo>();             
             }
             else 
             {
-                services.AddSingleton<IPlaceRepo, SqlPlaceRepo>();    
-                services.AddSingleton<IRefriRepo, SqlReftiRepo>();    
+                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();        
             }
+
+            services.AddScoped<IRefriRepo, SqlReftiRepo>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -55,8 +58,6 @@ namespace RefrigeratorServerSide
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
