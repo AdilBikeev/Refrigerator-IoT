@@ -15,8 +15,8 @@ namespace RefrigeratorServerSide.Profiles
     {
         public RefriBLockProfile()
         {
-            CreateMap<RefrigeratorBlock, RefriBlockWriteDto>();
-            CreateMap<RefriBlockWriteDto, RefrigeratorBlock>();
+            CreateMap<RefrigeratorBlock, RefriBlockReadDto>();
+            CreateMap<RefriBlockReadDto, RefrigeratorBlock>();
         }
     }
 }

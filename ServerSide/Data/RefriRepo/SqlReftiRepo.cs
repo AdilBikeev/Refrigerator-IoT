@@ -73,6 +73,19 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         #endregion
 
         #region RegrigeratorBlocks
+        public RefrigeratorBlock GetRefriBlock(string blockUUID) => this._context
+        .RefrigeratorBlock.FirstOrDefault(
+            item => item.BlockUUID.Equals(blockUUID)
+        );
+
+        public IList<string> GetRefriBlockSensorsUUID(string blockUUID) => this._context
+        .SensorData.Where(
+            sensor => sensor.RefrigeratorBlock
+                          .BlockUUID.Equals(blockUUID)
+        )
+        .Select(sensor => sensor.SensorUUID)
+        .ToList();
+
         public void UpdBlocksRefriData(IList<string> blocksUUID, Refrigerator refrigerator) =>
             this._context
                 .RefrigeratorBlock

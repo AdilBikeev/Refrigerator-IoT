@@ -39,7 +39,7 @@ namespace RefrigeratorServerSide.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<string> CreateRefriBlock(RefriBlockWriteDto refriBLock)
+        public ActionResult<string> CreateRefriBlock(RefriBlockReadDto refriBLock)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace RefrigeratorServerSide.Controllers
         [Route("{blockUUID}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult UpdateRefriBlock([FromBody] RefriBlockWriteDto refriBLock, [FromRoute] string blockUUID)
+        public ActionResult UpdateRefriBlock([FromBody] RefriBlockReadDto refriBLock, [FromRoute] string blockUUID)
         {
             try
             {
@@ -82,6 +82,37 @@ namespace RefrigeratorServerSide.Controllers
                 _refriRepo.UpdSensorsData(refriBLock.SensorsIDS, blockModel);
                 _refriRepo.SaveChanges();
                 return Ok();
+            }
+            catch (Exception exc)
+            {
+                return Forbid(exc.ToString());
+            }
+        }
+        #endregion
+
+        #region HttpGet
+        /// <summary>
+        /// Возвращает данные блока холодильника.
+        /// </summary>
+        /// <param name="blockUUID">UUID блока холодильника.</param>
+        /// <response code="200">Данные успешно отправлены клиенту.</response>
+        /// <response code="403">Процесс поиска данных по UUID блока холодильника завершился ошибкой.</response>
+        // GET api/block/{blockUUID}
+        [HttpGet]
+        [Route("{blockUUID}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult<RefriBlockReadDto> GetRefriBlock(string blockUUID)
+        {
+            try
+            {
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(GetRefriBlock)}: blockUUID={blockUUID}");
+
+                var refriblock = _refriRepo.GetRefriBlock(blockUUID);
+                var blockModel = _mapper.Map<RefriBlockReadDto>(refriblock);
+                blockModel.SensorsIDS = _refriRepo.GetRefrigeratorBlocksUUID(blockUUID);
+
+                return Ok(blockModel);
             }
             catch (Exception exc)
             {

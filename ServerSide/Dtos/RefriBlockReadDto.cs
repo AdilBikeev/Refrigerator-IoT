@@ -8,7 +8,7 @@ namespace RefrigeratorServerSide.Dtos
     /// <summary>
     /// Данные о блоке холодильника от клиента.
     /// </summary>
-    public class RefriBlockWriteDto
+    public class RefriBlockReadDto
     {
         /// <summary>
         /// ID сенсоров на блоке холодильника.

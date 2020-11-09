@@ -44,6 +44,12 @@ namespace RefrigeratorServerSide.Data.RefriRepo
 
         #region RegrigeratorBlock
         /// <summary>
+        /// Возвращает инф. о блоке холодильнике по его UUID.
+        /// </summary>
+        /// <param name="blockUUID">UUID блока холодильника.</param>
+        public RefrigeratorBlock GetRefriBlock(string blockUUID);
+
+        /// <summary>
         /// Обновление указателя на холодильник заданных блоков.
         /// </summary>
         /// <param name="blocksUUID">Список ID блоков, находящихся в холодильнике.</param>
@@ -62,6 +68,12 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         /// </summary>
         /// <param name="refriBlock">Обновленные данные о блоке холодильника.</param>
         public void UpdateRefriBlockData(RefrigeratorBlock refriBlock);
+
+        /// <summary>
+        /// Возвращает UUID сенсоров блока холодильника по UUID блока холодильника.
+        /// </summary>
+        /// <param name="blockUUID">UUID блока холодильника.</param>
+        public IList<string> GetRefriBlockSensorsUUID(string blockUUID);
         #endregion
 
         #region Sensor
