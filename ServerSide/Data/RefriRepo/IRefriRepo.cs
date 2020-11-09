@@ -61,7 +61,16 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         /// Обновляем инф. по блоку холодильника.
         /// </summary>
         /// <param name="refriBlock">Обновленные данные о блоке холодильника.</param>
-        public void UpdateRefriData(RefrigeratorBlock refriBlock);
+        public void UpdateRefriBlockData(RefrigeratorBlock refriBlock);
+        #endregion
+
+        #region Sensor
+        /// <summary>
+        /// Обновление указателя на блок холодильника заданных сенсоров.
+        /// </summary>
+        /// <param name="sensorsIDS">Список ID сенсоров на блоке холодильника.</param>
+        /// <param name="refriBlock">Блок холодильника.</param>
+        public void UpdSensorsData(IList<string> sensorsIDS, RefrigeratorBlock refriBlock);
         #endregion
     }
 }

@@ -44,8 +44,10 @@ namespace RefrigeratorServerSide.Controllers
             try
             {
                 Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(CreateRefriBlock)}: {JObject.FromObject(refriBLock).ToString()}");
-                var modelBlock = _mapper.Map<RefrigeratorBlock>(refriBLock);
-                _refriRepo.CreateRefriBlock(modelBlock, out string blockUUID);
+                var blockModel = _mapper.Map<RefrigeratorBlock>(refriBLock);
+                _refriRepo.CreateRefriBlock(blockModel, out string blockUUID);
+                _refriRepo.SaveChanges();
+                _refriRepo.UpdSensorsData(refriBLock.SensorsIDS, blockModel);
                 _refriRepo.SaveChanges();
                 return Ok(JObject.FromObject(blockUUID));
             }
@@ -75,7 +77,9 @@ namespace RefrigeratorServerSide.Controllers
 
                 var blockModel = _mapper.Map<RefrigeratorBlock>(refriBLock);
                 blockModel.BlockUUID = blockUUID;
-                _refriRepo.UpdateRefriData(blockModel);
+                _refriRepo.UpdateRefriBlockData(blockModel);
+                _refriRepo.SaveChanges();
+                _refriRepo.UpdSensorsData(refriBLock.SensorsIDS, blockModel);
                 _refriRepo.SaveChanges();
                 return Ok();
             }

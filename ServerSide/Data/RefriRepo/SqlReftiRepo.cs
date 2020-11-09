@@ -93,7 +93,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             }
         }
 
-        public void UpdateRefriData(RefrigeratorBlock refriBlock)
+        public void UpdateRefriBlockData(RefrigeratorBlock refriBlock)
         {
             var blockModel = _context
             .RefrigeratorBlock
@@ -111,6 +111,12 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                 throw new Exception("Блок холодильника с указанными данными не существует !");
             }
         }
+
+        public void UpdSensorsData(IList<string> sensorsIDS, RefrigeratorBlock refriBlock) =>
+            this._context
+                .SensorData
+                .Where(sensor => sensorsIDS.Contains(sensor.SensorUUID))
+                .ForEachAsync(sensor => sensor.RefrigeratorBlock = refriBlock);
         #endregion
     }
 }
