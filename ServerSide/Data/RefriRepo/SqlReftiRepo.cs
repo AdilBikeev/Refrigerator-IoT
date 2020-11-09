@@ -146,6 +146,11 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                 throw new Exception("Холодильник с указанными данными уже существует !");
             }
         }
+
+        public SensorData GetSensor(string sensorUUID) => this._context
+        .SensorData.FirstOrDefault(
+            item => item.SensorUUID.Equals(sensorUUID)
+        );
         #endregion
     }
 }

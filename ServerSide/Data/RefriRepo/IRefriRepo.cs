@@ -85,6 +85,12 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         public void CreateSensor(SensorData sensor, out string sensorUUID);
 
         /// <summary>
+        /// Возвращает инф. о сенсоре по его UUID.
+        /// </summary>
+        /// <param name="sensorUUID">UUID сенсора.</param>
+        public SensorData GetSensor(string sensorUUID);
+
+        /// <summary>
         /// Обновление указателя на блок холодильника заданных сенсоров.
         /// </summary>
         /// <param name="sensorsIDS">Список ID сенсоров на блоке холодильника.</param>

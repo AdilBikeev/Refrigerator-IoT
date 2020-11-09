@@ -28,6 +28,34 @@ namespace RefrigeratorServerSide.Controllers
             this._mapper = mapper;
         }
 
+        #region HttpGet
+        /// <summary>
+        /// Возвращает данные холодильника.
+        /// </summary>
+        /// <param name="sensorUUID">UUID сенсора.</param>
+        /// <response code="200">Данные успешно отправлены клиенту.</response>
+        /// <response code="403">Процесс поиска данных по UUID сенсора завершился ошибкой.</response>
+        // GET api/sensor/{sensorUUID}
+        [HttpGet]
+        [Route("{sensorUUID}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult<RefriReeadDto> GetSensor(string sensorUUID)
+        {
+            try
+            {
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(GetSensor)}: refrigeratorUUID={sensorUUID}");
+
+                var sensor = _refriRepo.GetSensor(sensorUUID);
+                return Ok(_mapper.Map<SensorReeadDto>(sensor));
+            }
+            catch (Exception exc)
+            {
+                return Forbid(exc.ToString());
+            }
+        }
+        #endregion
+
         #region HttpPost
         /// <summary>
         /// Добавляет в БД инф. о новом сенсоре.
