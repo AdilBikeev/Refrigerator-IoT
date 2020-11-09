@@ -13,7 +13,7 @@ namespace RefrigeratorServerSide.Dtos
         /// <summary>
         /// ID сенсоров на блоке холодильника.
         /// </summary>
-        public IList<string> Sensors{ get; set; }
+        public IList<string> SensorsIDS{ get; set; }
 
         /// <summary>
         /// Название блока.

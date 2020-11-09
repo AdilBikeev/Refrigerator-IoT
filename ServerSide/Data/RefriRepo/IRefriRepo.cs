@@ -56,6 +56,12 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         /// <param name="refriBlock">Инф. о блоке холодильника.</param>
         /// <param name="blockUUID">Идентификатор блока.</param>
         public void CreateRefriBlock(RefrigeratorBlock refriBlock, out string blockUUID);
+
+        /// <summary>
+        /// Обновляем инф. по блоку холодильника.
+        /// </summary>
+        /// <param name="refriBlock">Обновленные данные о блоке холодильника.</param>
+        public void UpdateRefriData(RefrigeratorBlock refriBlock);
         #endregion
     }
 }

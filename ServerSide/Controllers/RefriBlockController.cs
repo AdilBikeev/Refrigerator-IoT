@@ -35,7 +35,7 @@ namespace RefrigeratorServerSide.Controllers
         /// <param name="refriBLock">Данные блока холодильника.</param>
         /// <response code="200">Идентификатор блока.</response>
         /// <response code="403">Процесс добавления данных о блоке холодильника в БД завершились ошибкой.</response>
-        // POST api/refrigerator
+        // POST api/block
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -48,6 +48,36 @@ namespace RefrigeratorServerSide.Controllers
                 _refriRepo.CreateRefriBlock(modelBlock, out string blockUUID);
                 _refriRepo.SaveChanges();
                 return Ok(JObject.FromObject(blockUUID));
+            }
+            catch (Exception exc)
+            {
+                return Forbid(exc.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Обновляет данные блока холодильника.
+        /// </summary>
+        /// <param name="refriBLock">Обновленные данные блока холодильника.</param>
+        /// <param name="blockUUID">UUID блока холодильника.</param>
+        /// <response code="200">Данные успешно обновлены.</response>
+        /// <response code="403">Процесс обновления данных завершился ошибкой.</response>
+        // POST api/block/{blockUUID}
+        [HttpPost]
+        [Route("{blockUUID}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult UpdateRefriBlock([FromBody] RefriBlockWriteDto refriBLock, [FromRoute] string blockUUID)
+        {
+            try
+            {
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(UpdateRefriBlock)}: refriDto={JObject.FromObject(refriBLock)}, blockUUID={blockUUID}");
+
+                var blockModel = _mapper.Map<RefrigeratorBlock>(refriBLock);
+                blockModel.BlockUUID = blockUUID;
+                _refriRepo.UpdateRefriData(blockModel);
+                _refriRepo.SaveChanges();
+                return Ok();
             }
             catch (Exception exc)
             {

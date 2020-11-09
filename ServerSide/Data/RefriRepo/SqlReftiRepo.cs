@@ -92,6 +92,25 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                 throw new Exception("Блок холодильника с указанными данными уже существует !");
             }
         }
+
+        public void UpdateRefriData(RefrigeratorBlock refriBlock)
+        {
+            var blockModel = _context
+            .RefrigeratorBlock
+            .FirstOrDefault(item =>
+                item.BlockUUID.Equals(refriBlock.BlockUUID)
+             );
+
+
+            if (blockModel is not null)
+            {
+                blockModel = refriBlock;
+            }
+            else
+            {
+                throw new Exception("Блок холодильника с указанными данными не существует !");
+            }
+        }
         #endregion
     }
 }
