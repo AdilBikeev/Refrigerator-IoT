@@ -42,13 +42,20 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         public void UpdateRefriData(RefriReeadDto refrigerator, string refrigeratorUUID);
         #endregion
 
-        #region RegrigeratorBlocks
+        #region RegrigeratorBlock
         /// <summary>
         /// Обновление указателя на холодильник заданных блоков.
         /// </summary>
         /// <param name="blocksUUID">Список ID блоков, находящихся в холодильнике.</param>
         /// <param name="refrigerator">Холодильник, в которую переместили блоки.</param>
         public void UpdBlocksRefriData(IList<string> blocksUUID, Refrigerator refrigerator);
+
+        /// <summary>
+        /// Создает в БД инф. о блоке холодильника.
+        /// </summary>
+        /// <param name="refriBlock">Инф. о блоке холодильника.</param>
+        /// <param name="blockUUID">Идентификатор блока.</param>
+        public void CreateRefriBlock(RefrigeratorBlock refriBlock, out string blockUUID);
         #endregion
     }
 }

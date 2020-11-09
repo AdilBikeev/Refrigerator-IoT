@@ -29,7 +29,7 @@ namespace RefrigeratorServerSide.Controllers
             this._refriRepo = refriRepo;
             this._mapper = mapper;
         }
-        
+
         #region HttpGet
         /// <summary>
         /// ¬озвращает все места в холодильниках.

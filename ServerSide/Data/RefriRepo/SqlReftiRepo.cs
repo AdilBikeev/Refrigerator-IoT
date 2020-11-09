@@ -78,6 +78,20 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                 .RefrigeratorBlock
                 .Where(block => blocksUUID.Contains(block.BlockUUID))
                 .ForEachAsync(block => block.Refrigerator = refrigerator);
+
+        public void CreateRefriBlock(RefrigeratorBlock refriBlock, out string blockUUID)
+        {
+            if (!_context.RefrigeratorBlock.Contains(refriBlock))
+            {
+                blockUUID =  _encrypt.GetSHA512(_context.RefrigeratorBlock.Count().ToString());
+                refriBlock.BlockUUID = blockUUID;
+                _context.RefrigeratorBlock.Add(refriBlock);
+            }
+            else
+            {
+                throw new Exception("Блок холодильника с указанными данными уже существует !");
+            }
+        }
         #endregion
     }
 }
