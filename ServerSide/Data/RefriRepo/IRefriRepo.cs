@@ -76,7 +76,14 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         public IList<string> GetRefriBlockSensorsUUID(string blockUUID);
         #endregion
 
-        #region Sensor
+        #region SensorData
+        /// <summary>
+        /// Добавляет в БД инф. о сенсоре.
+        /// </summary>
+        /// <param name="sensor">Данные сенсора.</param>
+        /// <param name="sensorUUID">Идентификатор сенсора.</param>
+        public void CreateSensor(SensorData sensor, out string sensorUUID);
+
         /// <summary>
         /// Обновление указателя на блок холодильника заданных сенсоров.
         /// </summary>

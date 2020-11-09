@@ -131,5 +131,21 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                 .Where(sensor => sensorsIDS.Contains(sensor.SensorUUID))
                 .ForEachAsync(sensor => sensor.RefrigeratorBlock = refriBlock);
         #endregion
+
+        #region SensorData
+        public void CreateSensor(SensorData sensor, out string sensorUUID)
+        {
+            if (!_context.SensorData.Contains(sensor))
+            {
+                sensorUUID = _encrypt.GetSHA512(_context.SensorData.Count().ToString());
+                sensor.SensorUUID = sensorUUID;
+                _context.SensorData.Add(sensor);
+            }
+            else
+            {
+                throw new Exception("Холодильник с указанными данными уже существует !");
+            }
+        }
+        #endregion
     }
 }

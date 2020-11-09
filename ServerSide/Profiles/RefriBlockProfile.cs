@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace RefrigeratorServerSide.Profiles
 {
     /// <summary>
-    /// Класс для маппинга данных холодильника - клиенту.
+    /// Класс для маппинга данных блока холодильника - клиенту.
     /// </summary>
     public class RefriBLockProfile : Profile
     {
