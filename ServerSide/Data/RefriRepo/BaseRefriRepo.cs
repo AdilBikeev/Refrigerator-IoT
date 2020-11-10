@@ -136,7 +136,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         {
             if (!_context.SensorData.Contains(sensor))
             {
-                sensorUUID = _encrypt.GetSHA512(_context.SensorData.Count().ToString());
+                sensorUUID = _encrypt.GetSHA512((_context.SensorData.Count() + 1).ToString());
                 sensor.SensorUUID = sensorUUID;
                 _context.SensorData.Add(sensor);
             }

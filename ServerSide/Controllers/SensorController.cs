@@ -67,11 +67,11 @@ namespace RefrigeratorServerSide.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult<string> CreateRefriBlock(SensorReeadDto sensor)
+        public ActionResult<string> CreateSensor(SensorReeadDto sensor)
         {
             try
             {
-                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(CreateRefriBlock)}: {JObject.FromObject(sensor).ToString()}");
+                Console.WriteLine($"{DateTime.Now.ToString("dd/mm/yy hh:mm:ss:mm")} {nameof(CreateSensor)}: {JObject.FromObject(sensor).ToString()}");
                 var sensorModel = _mapper.Map<SensorData>(sensor);
                 _refriRepo.CreateSensor(sensorModel, out string sensorUUID);
                 _refriRepo.SaveChanges();
