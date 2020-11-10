@@ -42,13 +42,13 @@ namespace RefrigeratorServerSide
             if (this.IsDevelopment)
             {
                 services.AddScoped<IPlaceRepo, MockPlaceRepo>();             
+                services.AddScoped<IRefriRepo, MockRefriRepo>();             
             }
             else 
             {
-                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();        
+                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();
+                services.AddScoped<IRefriRepo, SqlReftiRepo>();
             }
-
-            services.AddScoped<IRefriRepo, SqlReftiRepo>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
