@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Microsoft.EntityFrameworkCore;
+using RefrigeratorServerSide.Dtos;
 using RemoteProvider.Models;
 using System;
 using System.Collections.Generic;
@@ -24,17 +26,6 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         /// Список блококв холодильника.
         /// </summary>
         private IList<Refrigerator> _refrigerators;
-
-        public MockRefriRepo(RefrigeratorContext context, IMapper mapper) : base(context, mapper)
-        {
-            InitRefrigerators();
-            InitRefriBlocks();
-            InitSensorData();
-
-            this._context.Refrigerator.AddRange(_refrigerators);
-            this._context.RefrigeratorBlock.AddRange(_refriBlocks);
-            this._context.SensorData.AddRange(_sensors);
-        }
 
         /// <summary>
         /// Инициализация данных для блоков холодильника.
@@ -81,9 +72,9 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         {
             _sensors = new List<SensorData>()
             {
-                new SensorData() { 
-                    SensorUUID=this._encrypt.GetSHA512("1") , 
-                    Name="Яйца", 
+                new SensorData() {
+                    SensorUUID=this._encrypt.GetSHA512("1") ,
+                    Name="Яйца",
                     Value="10 шт.",
                     RefrigeratorBlock=_refriBlocks[0]
                 },
@@ -107,5 +98,134 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                 }
             };
         }
+
+        public MockRefriRepo(IMapper mapper) : base(mapper)
+        {
+            InitRefrigerators();
+            InitRefriBlocks();
+            InitSensorData();
+        }
+
+        #region Refrigerator
+        public override void CreateRefrigerator(Refrigerator refrigerator)
+        {
+            if (!_refrigerators.Contains(refrigerator))
+            {
+                refrigerator.RefrigeratorUUID = _encrypt.GetSHA512(_refrigerators.Count().ToString());
+                _refrigerators.Add(refrigerator);
+            }
+            else
+            {
+                throw new Exception("Холодильник с указанными данными уже существует !");
+            }
+        }
+
+        public override Refrigerator GetRefrigerator(string refrigeratorUUID) => this._refrigerators.FirstOrDefault(
+            item => item.RefrigeratorUUID.Equals(refrigeratorUUID)
+        );
+
+        public override IList<string> GetRefrigeratorBlocksUUID(string refrigeratorUUID)=>this._refriBlocks.Where(
+            block => block.Refrigerator
+                          .RefrigeratorUUID.Equals(refrigeratorUUID)
+        )
+        .Select(block => block.BlockUUID)
+        .ToList();
+
+        public override void UpdateRefriData(RefriReeadDto refrigerator, string refrigeratorUUID)
+        {
+            var refriModel = _refrigerators
+            .FirstOrDefault(item =>
+                item.RefrigeratorUUID.Equals(refrigeratorUUID)
+             );
+
+
+            if (refriModel is not null)
+            {
+                refriModel = _mapper.Map<Refrigerator>(refrigerator);
+                this.UpdBlocksRefriData(refrigerator.blockIDS, refriModel);
+            }
+            else
+            {
+                throw new Exception("Холодильник с указанными данными не существует !");
+            }
+        }
+        #endregion
+
+        #region RegrigeratorBlocks
+        public override RefrigeratorBlock GetRefriBlock(string blockUUID) => this._refriBlocks.FirstOrDefault(
+            item => item.BlockUUID.Equals(blockUUID)
+        );
+
+        public override IList<string> GetRefriBlockSensorsUUID(string blockUUID) => this._sensors.Where(
+            sensor => sensor.RefrigeratorBlock
+                          .BlockUUID.Equals(blockUUID)
+        )
+        .Select(sensor => sensor.SensorUUID)
+        .ToList();
+
+        public override void UpdBlocksRefriData(IList<string> blocksUUID, Refrigerator refrigerator) =>
+            this._refriBlocks
+                .Where(block => blocksUUID.Contains(block.BlockUUID))
+                .ForAll(block => block.Refrigerator = refrigerator);
+
+        public override void CreateRefriBlock(RefrigeratorBlock refriBlock, out string blockUUID)
+        {
+            if (!_refriBlocks.Contains(refriBlock))
+            {
+                blockUUID = _encrypt.GetSHA512(_refriBlocks.Count().ToString());
+                refriBlock.BlockUUID = blockUUID;
+                _refriBlocks.Add(refriBlock);
+            }
+            else
+            {
+                throw new Exception("Блок холодильника с указанными данными уже существует !");
+            }
+        }
+
+        public override void UpdateRefriBlockData(RefrigeratorBlock refriBlock)
+        {
+            var blockModel = _refriBlocks
+            .FirstOrDefault(item =>
+                item.BlockUUID.Equals(refriBlock.BlockUUID)
+             );
+
+
+            if (blockModel is not null)
+            {
+                blockModel = refriBlock;
+            }
+            else
+            {
+                throw new Exception("Блок холодильника с указанными данными не существует !");
+            }
+        }
+
+        public override void UpdSensorsData(IList<string> sensorsIDS, RefrigeratorBlock refriBlock) =>
+            this._sensors
+                .Where(sensor => sensorsIDS.Contains(sensor.SensorUUID))
+                .ForAll(sensor => sensor.RefrigeratorBlock = refriBlock);
+        #endregion
+
+        #region SensorData
+        public override void CreateSensor(SensorData sensor, out string sensorUUID)
+        {
+            if (!_sensors.Contains(sensor))
+            {
+                sensorUUID = _encrypt.GetSHA512((_sensors.Count() + 1).ToString());
+                sensor.SensorUUID = sensorUUID;
+                _sensors.Add(sensor);
+            }
+            else
+            {
+                throw new Exception("Холодильник с указанными данными уже существует !");
+            }
+        }
+
+        public override SensorData GetSensor(string sensorUUID) => this._sensors.FirstOrDefault(
+            item => item.SensorUUID.Equals(sensorUUID)
+        );
+
+        public override bool SaveChanges() => true;
+        #endregion
     }
 }
