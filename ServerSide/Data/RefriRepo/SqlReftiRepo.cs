@@ -34,13 +34,12 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             }
         }
 
-        public override IList<RefriReeadDto> GetAllRefri() => this._context
-                                                                  .Refrigerator
-                                                                  .Select(item => _mapper.Map<RefriReeadDto>(item))
-                                                                  .ToList();
+        public override IList<Refrigerator> GetAllRefri() => this._context.Refrigerator.ToList();
 
         public override Refrigerator GetRefrigerator(string refrigeratorUUID) => GetRefriItem(this._context
         .Refrigerator.ToList(), refrigeratorUUID);
+
+        public override IList<RefrigeratorBlock> GetAllRefriBlock() => this._context.RefrigeratorBlock.ToList();
 
         public override IList<string> GetRefrigeratorBlocksUUID(string refrigeratorUUID) => GetRefrigeratorBlocksUUID(this._context
         .RefrigeratorBlock.ToList(), refrigeratorUUID);
@@ -120,6 +119,8 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                 throw new Exception("Холодильник с указанными данными уже существует !");
             }
         }
+
+        public override IList<SensorData> GetAllSensorData() => this._context.SensorData.ToList();
 
         public override SensorData GetSensor(string sensorUUID) => GetRefriItem(this._context
         .SensorData.ToList(), sensorUUID);

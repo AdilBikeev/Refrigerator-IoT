@@ -41,7 +41,7 @@ namespace RefrigeratorServerSide.Controllers
         [Route("refrigerator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<IList<RefriReeadDto>> GetAllRefri() => Ok(this._refriRepo.GetAllRefri());
+        public ActionResult<IList<Refrigerator>> GetAllRefri() => Ok(this._refriRepo.GetAllRefri());
 
         /// <summary>
         /// Возвращает данные холодильника.
@@ -204,6 +204,18 @@ namespace RefrigeratorServerSide.Controllers
 
         #region HttpGet
         /// <summary>
+        /// Возвращает данные всех блоков холодильника.
+        /// </summary>
+        /// <response code="200">Данные успешно возвращены.</response>
+        /// <response code="500">Отсутствуют данные в БД.</response>
+        // GET api/block
+        [HttpGet]
+        [Route("block")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<IList<RefrigeratorBlock>> GetAllRefriBlock() => Ok(this._refriRepo.GetAllRefriBlock());
+
+        /// <summary>
         /// Возвращает данные блока холодильника.
         /// </summary>
         /// <param name="blockUUID">UUID блока холодильника.</param>
@@ -236,6 +248,18 @@ namespace RefrigeratorServerSide.Controllers
 
         #region SensorData
         #region HttpGet
+        /// <summary>
+        /// Возвращает данные всех сенсоров блока холодильника.
+        /// </summary>
+        /// <response code="200">Данные успешно возвращены.</response>
+        /// <response code="500">Отсутствуют данные в БД.</response>
+        // GET api/sensor
+        [HttpGet]
+        [Route("sensor")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<IList<SensorData>> GetAllSensorData() => Ok(this._refriRepo.GetAllSensorData());
+
         /// <summary>
         /// Возвращает данные холодильника.
         /// </summary>

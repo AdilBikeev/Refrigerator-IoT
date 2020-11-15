@@ -25,7 +25,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         /// <summary>
         /// Влзвращает весь список с данными холодильников.
         /// </summary>
-        public IList<RefriReeadDto> GetAllRefri(); 
+        public IList<Refrigerator> GetAllRefri(); 
 
         /// <summary>
         /// Возвращает инф. о холодильнике по его UUID.
@@ -48,6 +48,11 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         #endregion
 
         #region RegrigeratorBlock
+        /// <summary>
+        /// Возвращает весь список с данными блока холодильника.
+        /// </summary>
+        public IList<RefrigeratorBlock> GetAllRefriBlock();
+
         /// <summary>
         /// Возвращает инф. о блоке холодильнике по его UUID.
         /// </summary>
@@ -82,6 +87,11 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         #endregion
 
         #region SensorData
+        /// <summary>
+        /// Возвращает весь список с данными сенсоров блока холодильника.
+        /// </summary>
+        public IList<SensorData> GetAllSensorData();
+
         /// <summary>
         /// Добавляет в БД инф. о сенсоре.
         /// </summary>
