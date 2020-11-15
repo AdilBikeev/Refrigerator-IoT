@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RefrigeratorServerSide.Dtos;
 using RemoteProvider.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,51 @@ namespace RefrigeratorServerSide.Data.RefriRepo
     {
         protected readonly IMapper _mapper;
         protected readonly Encrypt _encrypt = new();
+
+        protected T GetRefriItem<T>(IList<T> items, string UUID) where T : class
+        {
+            if (typeof(T) == typeof(Refrigerator))
+            {
+                return (T)Convert.ChangeType((items as IList<Refrigerator>).FirstOrDefault(item => item.RefrigeratorUUID.Equals(UUID)), typeof(T));
+            }
+            else if (typeof(T) == typeof(RefrigeratorBlock))
+            {
+                return (T)Convert.ChangeType((items as IList<RefrigeratorBlock>).FirstOrDefault(item => item.BlockUUID.Equals(UUID)), typeof(T));
+            }
+            else if (typeof(T) == typeof(SensorData))
+            {
+                return (T)Convert.ChangeType((items as IList<SensorData>).FirstOrDefault(item => item.SensorUUID.Equals(UUID)), typeof(T));
+            }
+
+            return null;
+        }
+
+        protected IList<string> GetRefrigeratorBlocksUUID<T>(IList<T> items, string refrigeratorUUID) where T : RefrigeratorBlock => items.Where(
+            block => block.Refrigerator
+                          .RefrigeratorUUID.Equals(refrigeratorUUID)
+        )
+        .Select(block => block.BlockUUID)
+        .ToList();
+
+        protected void UpdateRefriData<T>(IList<T> refriList, RefriReeadDto refrigerator, string refrigeratorUUID) where T : Refrigerator {
+            var refriModel = refriList
+            .FirstOrDefault(item =>
+                item.RefrigeratorUUID.Equals(refrigeratorUUID)
+             );
+
+
+            if (refriModel is not null)
+            {
+                refriModel.Name = refrigerator.Name;
+                refriModel.Description = refrigerator.Description;
+                this.SaveChanges();
+                this.UpdBlocksRefriData(refrigerator.blockIDS, refriModel);
+            }
+            else
+            {
+                throw new Exception("Холодильник с указанными данными не существует !");
+            }
+        }
 
         public BaseRefriRepo(IMapper mapper) => (_mapper) = (mapper);
 

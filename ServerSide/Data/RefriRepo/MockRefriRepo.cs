@@ -124,44 +124,15 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                                                                   .Select(item => _mapper.Map<RefriReeadDto>(item))
                                                                   .ToList();
 
-        public override Refrigerator GetRefrigerator(string refrigeratorUUID) => this._refrigerators.FirstOrDefault(
-            item => item.RefrigeratorUUID.Equals(refrigeratorUUID)
-        );
+        public override Refrigerator GetRefrigerator(string refrigeratorUUID) => GetRefriItem(this._refrigerators.ToList(), refrigeratorUUID);
 
-        public override IList<string> GetRefrigeratorBlocksUUID(string refrigeratorUUID)=>this._refriBlocks.Where(
-            block => block.Refrigerator
-                          .RefrigeratorUUID.Equals(refrigeratorUUID)
-        )
-        .Select(block => block.BlockUUID)
-        .ToList();
+        public override IList<string> GetRefrigeratorBlocksUUID(string refrigeratorUUID)=> GetRefrigeratorBlocksUUID(this._refriBlocks, refrigeratorUUID);
 
-        public override void UpdateRefriData(RefriReeadDto refrigerator, string refrigeratorUUID)
-        {
-            var refriModel = _refrigerators
-            .FirstOrDefault(item =>
-                item.RefrigeratorUUID.Equals(refrigeratorUUID)
-             );
-
-
-            if (refriModel is not null)
-            {
-                // не обновляет данные, а возвращает новую ссылку
-                refriModel.Name = refrigerator.Name;
-                refriModel.Description = refrigerator.Description;
-                this.SaveChanges();
-                this.UpdBlocksRefriData(refrigerator.blockIDS, refriModel);
-            }
-            else
-            {
-                throw new Exception("Холодильник с указанными данными не существует !");
-            }
-        }
+        public override void UpdateRefriData(RefriReeadDto refrigerator, string refrigeratorUUID) => UpdateRefriData(this._refrigerators.ToList(), refrigerator, refrigeratorUUID);
         #endregion
 
         #region RegrigeratorBlocks
-        public override RefrigeratorBlock GetRefriBlock(string blockUUID) => this._refriBlocks.FirstOrDefault(
-            item => item.BlockUUID.Equals(blockUUID)
-        );
+        public override RefrigeratorBlock GetRefriBlock(string blockUUID) => GetRefriItem(this._refriBlocks, blockUUID);
 
         public override IList<string> GetRefriBlockSensorsUUID(string blockUUID) => this._sensors.Where(
             sensor => sensor.RefrigeratorBlock
@@ -228,9 +199,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             }
         }
 
-        public override SensorData GetSensor(string sensorUUID) => this._sensors.FirstOrDefault(
-            item => item.SensorUUID.Equals(sensorUUID)
-        );
+        public override SensorData GetSensor(string sensorUUID) => GetRefriItem(this._sensors, sensorUUID);
 
         public override bool SaveChanges() => true;
         #endregion
