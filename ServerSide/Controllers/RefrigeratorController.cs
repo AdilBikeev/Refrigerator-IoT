@@ -11,7 +11,6 @@ using Newtonsoft.Json.Linq;
 using RefrigeratorServerSide.Data;
 using RefrigeratorServerSide.Data.RefriRepo;
 using RefrigeratorServerSide.Dtos;
-using RefrigeratorServerSide.Models;
 using RemoteProvider.Models;
 
 namespace RefrigeratorServerSide.Controllers

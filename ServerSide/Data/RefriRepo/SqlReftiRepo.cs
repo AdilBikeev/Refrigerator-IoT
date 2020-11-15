@@ -18,7 +18,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         private readonly RefrigeratorContext _context;
         public override bool SaveChanges() => this._context.SaveChanges() >= 0;
 
-        public SqlReftiRepo(RefrigeratorContext context, IMapper mapper) : base(mapper) { }
+        public SqlReftiRepo(RefrigeratorContext context, IMapper mapper) : base(mapper) => (_context) = (context);
 
         #region Refrigerator
         public override void CreateRefrigerator(Refrigerator refrigerator)
