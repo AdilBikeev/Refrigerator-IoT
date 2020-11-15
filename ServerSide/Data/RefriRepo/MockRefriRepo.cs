@@ -36,7 +36,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             {
                 new Refrigerator()
                 {
-                    RefrigeratorUUID=this._encrypt.GetSHA512("1"),
+                    RefrigeratorUUID=this._encrypt.GetSHA512("0"),
                     Name="LG",
                     Description="Стильный, модный, молодежный"
                 }
@@ -52,13 +52,13 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             {
                 new RefrigeratorBlock()
                 {
-                    BlockUUID=this._encrypt.GetSHA512("1"),
+                    BlockUUID=this._encrypt.GetSHA512("0"),
                     Name="Блок с яйцами",
                     Refrigerator=_refrigerators[0]
                 },
                 new RefrigeratorBlock()
                 {
-                    BlockUUID=this._encrypt.GetSHA512("2"),
+                    BlockUUID=this._encrypt.GetSHA512("1"),
                     Name="Блок с водой",
                     Refrigerator=_refrigerators[0]
                 }
@@ -73,19 +73,19 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             _sensors = new List<SensorData>()
             {
                 new SensorData() {
-                    SensorUUID=this._encrypt.GetSHA512("1") ,
+                    SensorUUID=this._encrypt.GetSHA512("0") ,
                     Name="Яйца",
                     Value="10 шт.",
                     RefrigeratorBlock=_refriBlocks[0]
                 },
                  new SensorData() {
-                    SensorUUID=this._encrypt.GetSHA512("2") ,
+                    SensorUUID=this._encrypt.GetSHA512("1") ,
                     Name="Яйца",
                     Value="5 шт.",
                     RefrigeratorBlock=_refriBlocks[0]
                 },
                 new SensorData() {
-                    SensorUUID=this._encrypt.GetSHA512("3") ,
+                    SensorUUID=this._encrypt.GetSHA512("2") ,
                     Name="Pepsi",
                     Value="2 л.",
                     RefrigeratorBlock=_refriBlocks[1]
