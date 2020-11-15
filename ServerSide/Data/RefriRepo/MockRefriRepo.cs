@@ -120,6 +120,10 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             }
         }
 
+        public override IList<RefriReeadDto> GetAllRefri() => this._refrigerators
+                                                                  .Select(item => _mapper.Map<RefriReeadDto>(item))
+                                                                  .ToList();
+
         public override Refrigerator GetRefrigerator(string refrigeratorUUID) => this._refrigerators.FirstOrDefault(
             item => item.RefrigeratorUUID.Equals(refrigeratorUUID)
         );
@@ -141,7 +145,10 @@ namespace RefrigeratorServerSide.Data.RefriRepo
 
             if (refriModel is not null)
             {
-                refriModel = _mapper.Map<Refrigerator>(refrigerator);
+                // не обновляет данные, а возвращает новую ссылку
+                refriModel.Name = refrigerator.Name;
+                refriModel.Description = refrigerator.Description;
+                this.SaveChanges();
                 this.UpdBlocksRefriData(refrigerator.blockIDS, refriModel);
             }
             else

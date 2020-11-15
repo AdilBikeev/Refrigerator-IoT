@@ -23,6 +23,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         public abstract void CreateRefriBlock(RefrigeratorBlock refriBlock, out string blockUUID);
         public abstract void CreateRefrigerator(Refrigerator refrigerator);
         public abstract void CreateSensor(SensorData sensor, out string sensorUUID);
+        public abstract IList<RefriReeadDto> GetAllRefri();
         public abstract RefrigeratorBlock GetRefriBlock(string blockUUID);
         public abstract IList<string> GetRefriBlockSensorsUUID(string blockUUID);
         public abstract Refrigerator GetRefrigerator(string refrigeratorUUID);

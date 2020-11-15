@@ -34,6 +34,11 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             }
         }
 
+        public override IList<RefriReeadDto> GetAllRefri() => this._context
+                                                                  .Refrigerator
+                                                                  .Select(item => _mapper.Map<RefriReeadDto>(item))
+                                                                  .ToList();
+
         public override Refrigerator GetRefrigerator(string refrigeratorUUID) => this._context
         .Refrigerator.FirstOrDefault(
             item => item.RefrigeratorUUID.Equals(refrigeratorUUID)

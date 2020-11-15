@@ -20,13 +20,11 @@ namespace RefrigeratorServerSide.Controllers
     [ApiController]
     public class RefrigeratorController: ControllerBase
     {
-        private readonly IPlaceRepo _placeRepo;
         private readonly IRefriRepo _refriRepo;
         private readonly IMapper _mapper;
 
-        public RefrigeratorController(IPlaceRepo placeRepo, IRefriRepo refriRepo, IMapper mapper)
+        public RefrigeratorController(IRefriRepo refriRepo, IMapper mapper)
         {
-            this._placeRepo = placeRepo;
             this._refriRepo = refriRepo;
             this._mapper = mapper;
         }
@@ -35,7 +33,7 @@ namespace RefrigeratorServerSide.Controllers
 
         #region HttpGet
         /// <summary>
-        /// Возвращает все места в холодильниках.
+        /// Возвращает данные всех холодильников.
         /// </summary>
         /// <response code="200">Данные успешно возвращены.</response>
         /// <response code="500">Отсутствуют данные в БД.</response>
@@ -44,12 +42,7 @@ namespace RefrigeratorServerSide.Controllers
         [Route("refrigerator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<Dictionary<string, List<Place>>> GetAllPlaces()
-        {
-            var repo = this._placeRepo.GetPlaceRefrigerator();
-
-            return Ok(repo);
-        }
+        public ActionResult<IList<RefriReeadDto>> GetAllRefri() => Ok(this._refriRepo.GetAllRefri());
 
         /// <summary>
         /// Возвращает данные холодильника.

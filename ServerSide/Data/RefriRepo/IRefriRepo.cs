@@ -23,6 +23,11 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         public void CreateRefrigerator(Refrigerator refrigerator);
 
         /// <summary>
+        /// Влзвращает весь список с данными холодильников.
+        /// </summary>
+        public IList<RefriReeadDto> GetAllRefri(); 
+
+        /// <summary>
         /// Возвращает инф. о холодильнике по его UUID.
         /// </summary>
         /// <param name="refrigeratorUUID">UUID холодильника.</param>

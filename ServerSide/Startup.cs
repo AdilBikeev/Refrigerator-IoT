@@ -40,13 +40,11 @@ namespace RefrigeratorServerSide
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             if (this.IsDevelopment)
-            {
-                services.AddScoped<IPlaceRepo, MockPlaceRepo>();             
-                services.AddScoped<IRefriRepo, MockRefriRepo>();             
+            {           
+                services.AddSingleton<IRefriRepo, MockRefriRepo>();             
             }
             else 
             {
-                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();
                 services.AddScoped<IRefriRepo, SqlReftiRepo>();
             }
 
