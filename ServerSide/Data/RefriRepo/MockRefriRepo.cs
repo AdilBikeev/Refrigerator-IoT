@@ -168,7 +168,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
              );
 
 
-            if (blockModel is not null)
+            if (!(blockModel is null))
             {
                 blockModel = refriBlock;
             }

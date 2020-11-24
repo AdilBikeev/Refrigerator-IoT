@@ -17,7 +17,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
     public abstract class BaseRefriRepo : IRefriRepo
     {
         protected readonly IMapper _mapper;
-        protected readonly Encrypt _encrypt = new();
+        protected readonly Encrypt _encrypt = new Encrypt();
 
         protected T GetRefriItem<T>(IList<T> items, string UUID) where T : class
         {
@@ -51,7 +51,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
              );
 
 
-            if (refriModel is not null)
+            if (!(refriModel is null))
             {
                 refriModel.Name = refrigerator.Name;
                 refriModel.Description = refrigerator.Description;
