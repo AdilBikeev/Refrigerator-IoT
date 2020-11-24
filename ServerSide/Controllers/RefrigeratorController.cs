@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Xml;
@@ -32,10 +32,10 @@ namespace RefrigeratorServerSide.Controllers
 
         #region HttpGet
         /// <summary>
-        /// Возвращает данные всех холодильников.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ РІСЃРµС… С…РѕР»РѕРґРёР»СЊРЅРёРєРѕРІ.
         /// </summary>
-        /// <response code="200">Данные успешно возвращены.</response>
-        /// <response code="500">Отсутствуют данные в БД.</response>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РІРѕР·РІСЂР°С‰РµРЅС‹.</response>
+        /// <response code="500">РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚ РґР°РЅРЅС‹Рµ РІ Р‘Р”.</response>
         // GET api/refrigerator
         [HttpGet]
         [Route("refrigerator")]
@@ -44,11 +44,11 @@ namespace RefrigeratorServerSide.Controllers
         public ActionResult<IList<Refrigerator>> GetAllRefri() => Ok(this._refriRepo.GetAllRefri());
 
         /// <summary>
-        /// Возвращает данные холодильника.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <param name="refrigeratorUUID">UUID холодильника.</param>
-        /// <response code="200">Данные успешно отправлены клиенту.</response>
-        /// <response code="403">Процесс поиска данных по UUID холодильника завершился ошибкой.</response>
+        /// <param name="refrigeratorUUID">UUID С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅС‹ РєР»РёРµРЅС‚Сѓ.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РїРѕРёСЃРєР° РґР°РЅРЅС‹С… РїРѕ UUID С…РѕР»РѕРґРёР»СЊРЅРёРєР° Р·Р°РІРµСЂС€РёР»СЃСЏ РѕС€РёР±РєРѕР№.</response>
         // GET api/refrigerator/{refrigeratorUUID}
         [HttpGet]
         [Route("refrigerator/{refrigeratorUUID}")]
@@ -62,7 +62,7 @@ namespace RefrigeratorServerSide.Controllers
 
                 var refrigerator = _refriRepo.GetRefrigerator(refrigeratorUUID);
                 if (refrigerator is null)
-                    return Forbid("Не удалсоь найти холодильник с заданным идентификатроом");
+                    return Forbid("РќРµ СѓРґР°Р»СЃРѕСЊ РЅР°Р№С‚Рё С…РѕР»РѕРґРёР»СЊРЅРёРє СЃ Р·Р°РґР°РЅРЅС‹Рј РёРґРµРЅС‚РёС„РёРєР°С‚СЂРѕРѕРј");
                 var refriModel = _mapper.Map<RefriReeadDto>(refrigerator);
                 refriModel.blockIDS = _refriRepo.GetRefrigeratorBlocksUUID(refrigeratorUUID);
 
@@ -78,11 +78,11 @@ namespace RefrigeratorServerSide.Controllers
         #region HttpPost
         #region Refrigerator
         /// <summary>
-        /// Добавляет в БД инф. о новом холодильнике.
+        /// Р”РѕР±Р°РІР»СЏРµС‚ РІ Р‘Р” РёРЅС„. Рѕ РЅРѕРІРѕРј С…РѕР»РѕРґРёР»СЊРЅРёРєРµ.
         /// </summary>
-        /// <param name="refrigerator">Данные холодильника.</param>
-        /// <response code="200">Инф. о холодильнике успешно добавлена в БД.</response>
-        /// <response code="403">Процесс добавления данных о холодильнике в БД завершились ошибкой.</response>
+        /// <param name="refrigerator">Р”Р°РЅРЅС‹Рµ С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <response code="200">РРЅС„. Рѕ С…РѕР»РѕРґРёР»СЊРЅРёРєРµ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅР° РІ Р‘Р”.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РґРѕР±Р°РІР»РµРЅРёСЏ РґР°РЅРЅС‹С… Рѕ С…РѕР»РѕРґРёР»СЊРЅРёРєРµ РІ Р‘Р” Р·Р°РІРµСЂС€РёР»РёСЃСЊ РѕС€РёР±РєРѕР№.</response>
         // POST api/refrigerator
         [HttpPost]
         [Route("refrigerator")]
@@ -107,12 +107,12 @@ namespace RefrigeratorServerSide.Controllers
         }
 
         /// <summary>
-        /// Обновляет данные холодильника.
+        /// РћР±РЅРѕРІР»СЏРµС‚ РґР°РЅРЅС‹Рµ С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <param name="refriDto">Обновленные данные холодильника.</param>
-        /// <param name="refrigeratorUUID">UUID холодильника.</param>
-        /// <response code="200">Данные успешно обновлены.</response>
-        /// <response code="403">Процесс обновления данных холодильника завершился ошибкой.</response>
+        /// <param name="refriDto">РћР±РЅРѕРІР»РµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <param name="refrigeratorUUID">UUID С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅС‹.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РѕР±РЅРѕРІР»РµРЅРёСЏ РґР°РЅРЅС‹С… С…РѕР»РѕРґРёР»СЊРЅРёРєР° Р·Р°РІРµСЂС€РёР»СЃСЏ РѕС€РёР±РєРѕР№.</response>
         // POST api/refrigerator/{refrigeratorUUID}
         [HttpPost]
         [Route("refrigerator/{refrigeratorUUID}")]
@@ -141,11 +141,11 @@ namespace RefrigeratorServerSide.Controllers
         #region RefriBlock
         #region HttpPost
         /// <summary>
-        /// Добавляет в БД инф. о новом блоке холодильника.
+        /// Р”РѕР±Р°РІР»СЏРµС‚ РІ Р‘Р” РёРЅС„. Рѕ РЅРѕРІРѕРј Р±Р»РѕРєРµ С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <param name="refriBLock">Данные блока холодильника.</param>
-        /// <response code="200">Идентификатор блока.</response>
-        /// <response code="403">Процесс добавления данных о блоке холодильника в БД завершились ошибкой.</response>
+        /// <param name="refriBLock">Р”Р°РЅРЅС‹Рµ Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <response code="200">РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р±Р»РѕРєР°.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РґРѕР±Р°РІР»РµРЅРёСЏ РґР°РЅРЅС‹С… Рѕ Р±Р»РѕРєРµ С…РѕР»РѕРґРёР»СЊРЅРёРєР° РІ Р‘Р” Р·Р°РІРµСЂС€РёР»РёСЃСЊ РѕС€РёР±РєРѕР№.</response>
         // POST api/block
         [HttpPost]
         [Route("block")]
@@ -170,12 +170,12 @@ namespace RefrigeratorServerSide.Controllers
         }
 
         /// <summary>
-        /// Обновляет данные блока холодильника.
+        /// РћР±РЅРѕРІР»СЏРµС‚ РґР°РЅРЅС‹Рµ Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <param name="refriBLock">Обновленные данные блока холодильника.</param>
-        /// <param name="blockUUID">UUID блока холодильника.</param>
-        /// <response code="200">Данные успешно обновлены.</response>
-        /// <response code="403">Процесс обновления данных завершился ошибкой.</response>
+        /// <param name="refriBLock">РћР±РЅРѕРІР»РµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <param name="blockUUID">UUID Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅС‹.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РѕР±РЅРѕРІР»РµРЅРёСЏ РґР°РЅРЅС‹С… Р·Р°РІРµСЂС€РёР»СЃСЏ РѕС€РёР±РєРѕР№.</response>
         // POST api/block/{blockUUID}
         [HttpPost]
         [Route("block/{blockUUID}")]
@@ -204,10 +204,10 @@ namespace RefrigeratorServerSide.Controllers
 
         #region HttpGet
         /// <summary>
-        /// Возвращает данные всех блоков холодильника.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ РІСЃРµС… Р±Р»РѕРєРѕРІ С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <response code="200">Данные успешно возвращены.</response>
-        /// <response code="500">Отсутствуют данные в БД.</response>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РІРѕР·РІСЂР°С‰РµРЅС‹.</response>
+        /// <response code="500">РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚ РґР°РЅРЅС‹Рµ РІ Р‘Р”.</response>
         // GET api/block
         [HttpGet]
         [Route("block")]
@@ -216,11 +216,11 @@ namespace RefrigeratorServerSide.Controllers
         public ActionResult<IList<RefrigeratorBlock>> GetAllRefriBlock() => Ok(this._refriRepo.GetAllRefriBlock());
 
         /// <summary>
-        /// Возвращает данные блока холодильника.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <param name="blockUUID">UUID блока холодильника.</param>
-        /// <response code="200">Данные успешно отправлены клиенту.</response>
-        /// <response code="403">Процесс поиска данных по UUID блока холодильника завершился ошибкой.</response>
+        /// <param name="blockUUID">UUID Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР°.</param>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅС‹ РєР»РёРµРЅС‚Сѓ.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РїРѕРёСЃРєР° РґР°РЅРЅС‹С… РїРѕ UUID Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР° Р·Р°РІРµСЂС€РёР»СЃСЏ РѕС€РёР±РєРѕР№.</response>
         // GET api/block/{blockUUID}
         [HttpGet]
         [Route("block/{blockUUID}")]
@@ -249,10 +249,10 @@ namespace RefrigeratorServerSide.Controllers
         #region SensorData
         #region HttpGet
         /// <summary>
-        /// Возвращает данные всех сенсоров блока холодильника.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ РІСЃРµС… СЃРµРЅСЃРѕСЂРѕРІ Р±Р»РѕРєР° С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <response code="200">Данные успешно возвращены.</response>
-        /// <response code="500">Отсутствуют данные в БД.</response>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РІРѕР·РІСЂР°С‰РµРЅС‹.</response>
+        /// <response code="500">РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚ РґР°РЅРЅС‹Рµ РІ Р‘Р”.</response>
         // GET api/sensor
         [HttpGet]
         [Route("sensor")]
@@ -261,11 +261,11 @@ namespace RefrigeratorServerSide.Controllers
         public ActionResult<IList<SensorData>> GetAllSensorData() => Ok(this._refriRepo.GetAllSensorData());
 
         /// <summary>
-        /// Возвращает данные холодильника.
+        /// Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ С…РѕР»РѕРґРёР»СЊРЅРёРєР°.
         /// </summary>
-        /// <param name="sensorUUID">UUID сенсора.</param>
-        /// <response code="200">Данные успешно отправлены клиенту.</response>
-        /// <response code="403">Процесс поиска данных по UUID сенсора завершился ошибкой.</response>
+        /// <param name="sensorUUID">UUID СЃРµРЅСЃРѕСЂР°.</param>
+        /// <response code="200">Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅС‹ РєР»РёРµРЅС‚Сѓ.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РїРѕРёСЃРєР° РґР°РЅРЅС‹С… РїРѕ UUID СЃРµРЅСЃРѕСЂР° Р·Р°РІРµСЂС€РёР»СЃСЏ РѕС€РёР±РєРѕР№.</response>
         // GET api/sensor/{sensorUUID}
         [HttpGet]
         [Route("sensor/{sensorUUID}")]
@@ -289,11 +289,11 @@ namespace RefrigeratorServerSide.Controllers
 
         #region HttpPost
         /// <summary>
-        /// Добавляет в БД инф. о новом сенсоре.
+        /// Р”РѕР±Р°РІР»СЏРµС‚ РІ Р‘Р” РёРЅС„. Рѕ РЅРѕРІРѕРј СЃРµРЅСЃРѕСЂРµ.
         /// </summary>
-        /// <param name="sensor">Данные сенсора.</param>
-        /// <response code="200">Сервис возвращает идентификатор сенсора.</response>
-        /// <response code="403">Процесс добавления данных о сенсоре в БД завершились ошибкой.</response>
+        /// <param name="sensor">Р”Р°РЅРЅС‹Рµ СЃРµРЅСЃРѕСЂР°.</param>
+        /// <response code="200">РЎРµСЂРІРёСЃ РІРѕР·РІСЂР°С‰Р°РµС‚ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃРµРЅСЃРѕСЂР°.</response>
+        /// <response code="403">РџСЂРѕС†РµСЃСЃ РґРѕР±Р°РІР»РµРЅРёСЏ РґР°РЅРЅС‹С… Рѕ СЃРµРЅСЃРѕСЂРµ РІ Р‘Р” Р·Р°РІРµСЂС€РёР»РёСЃСЊ РѕС€РёР±РєРѕР№.</response>
         // POST api/sensor
         [HttpPost]
         [Route("sensor")]
