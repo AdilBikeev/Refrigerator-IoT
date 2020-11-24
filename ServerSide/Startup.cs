@@ -73,11 +73,7 @@ namespace RefrigeratorServerSide
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", nameof(RefrigeratorServerSide));
             });
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
