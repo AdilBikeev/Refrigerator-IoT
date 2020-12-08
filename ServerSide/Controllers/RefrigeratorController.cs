@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Xml;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Amqp.Framing;
@@ -17,6 +18,7 @@ namespace RefrigeratorServerSide.Controllers
 {
     [Route("api")]
     [ApiController]
+    [AllowAnonymous]
     public class RefrigeratorController: ControllerBase
     {
         private readonly IRefriRepo _refriRepo;
