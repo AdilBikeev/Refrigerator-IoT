@@ -56,6 +56,7 @@ namespace RefrigeratorServerSide
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,6 +65,8 @@ namespace RefrigeratorServerSide
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseSwagger(c => {
                 c.SerializeAsV2 = true;
