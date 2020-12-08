@@ -32,7 +32,7 @@
 
 # Как запустить Swagger ?
 1. Запускаете любым способом сервер
-2. Переходите по ссылке: `https://localhost:{port}/swagger/index.html`  где `port` - порт, на котором запущен сервер
+2. Переходите по ссылке: `http://localhost:3000/swagger/index.html`  где `port` - порт, на котором запущен сервер
 
 # Поднятие БД локально
 1. В файле appsettings.json для поля `RefrigeratorConnection` задаем строку подключения в БД:

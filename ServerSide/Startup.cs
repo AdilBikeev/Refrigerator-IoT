@@ -66,21 +66,21 @@ namespace RefrigeratorServerSide
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRouting();
+
             app.UseCors(builder => builder.AllowAnyOrigin());
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            
             app.UseSwagger(c => {
                 c.SerializeAsV2 = true;
             });
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", nameof(RefrigeratorServerSide));
-            });
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
             });
         }
     }
