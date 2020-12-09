@@ -55,13 +55,14 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                     BlockUUID=this._encrypt.GetSHA512("0"),
                     Name="Блок с яйцами",
                     Refrigerator=_refrigerators[0]
-                },
-                new RefrigeratorBlock()
-                {
-                    BlockUUID=this._encrypt.GetSHA512("1"),
-                    Name="Блок с водой",
-                    Refrigerator=_refrigerators[0]
                 }
+                //,
+                //new RefrigeratorBlock()
+                //{
+                //    BlockUUID=this._encrypt.GetSHA512("1"),
+                //    Name="Блок с водой",
+                //    Refrigerator=_refrigerators[0]
+                //}
             };
         }
 
@@ -74,28 +75,29 @@ namespace RefrigeratorServerSide.Data.RefriRepo
             {
                 new SensorData() {
                     SensorUUID=this._encrypt.GetSHA512("0") ,
-                    Name="Яйца",
+                    Name="Eggs",
                     Value="10 шт.",
                     RefrigeratorBlock=_refriBlocks[0]
                 },
                  new SensorData() {
                     SensorUUID=this._encrypt.GetSHA512("1") ,
-                    Name="Яйца",
+                    Name="Eggs",
                     Value="5 шт.",
                     RefrigeratorBlock=_refriBlocks[0]
-                },
-                new SensorData() {
-                    SensorUUID=this._encrypt.GetSHA512("2") ,
-                    Name="Pepsi",
-                    Value="2 л.",
-                    RefrigeratorBlock=_refriBlocks[1]
-                },
-                new SensorData() {
-                    SensorUUID=this._encrypt.GetSHA512("4") ,
-                    Name="Pepsi",
-                    Value="1 л.",
-                    RefrigeratorBlock=_refriBlocks[1]
                 }
+                // ,
+                //new SensorData() {
+                //    SensorUUID=this._encrypt.GetSHA512("2") ,
+                //    Name="Pepsi",
+                //    Value="2 л.",
+                //    RefrigeratorBlock=_refriBlocks[1]
+                //},
+                //new SensorData() {
+                //    SensorUUID=this._encrypt.GetSHA512("4") ,
+                //    Name="Pepsi",
+                //    Value="1 л.",
+                //    RefrigeratorBlock=_refriBlocks[1]
+                //}
             };
         }
 
@@ -162,7 +164,7 @@ namespace RefrigeratorServerSide.Data.RefriRepo
 
         public override void UpdateRefriBlockData(RefrigeratorBlock refriBlock)
         {
-            var blockModel = _refriBlocks
+            var blockModel = this._refriBlocks
             .FirstOrDefault(item =>
                 item.BlockUUID.Equals(refriBlock.BlockUUID)
              );

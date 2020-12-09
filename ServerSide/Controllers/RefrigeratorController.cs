@@ -236,7 +236,7 @@ namespace RefrigeratorServerSide.Controllers
 
                 var refriblock = _refriRepo.GetRefriBlock(blockUUID);
                 var blockModel = _mapper.Map<RefriBlockReadDto>(refriblock);
-                blockModel.SensorsIDS = _refriRepo.GetRefrigeratorBlocksUUID(blockUUID);
+                blockModel.SensorsIDS = _refriRepo.GetRefriBlockSensorsUUID(blockUUID);
 
                 return Ok(blockModel);
             }
