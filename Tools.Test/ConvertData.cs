@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+п»їusing Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RemoteProvider.Models;
@@ -24,7 +24,7 @@ namespace Tools.Test
         }
 
         [Test]
-        [Description("Проверяем корректность работы сериализации")]
+        [Description("РџСЂРѕРІРµСЂСЏРµРј РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ СЂР°Р±РѕС‚С‹ СЃРµСЂРёР°Р»РёР·Р°С†РёРё")]
         public void SerializeTest()
         {
             var xml = remoteClient.SensorData.SerializeData<XmlDocument>();
@@ -35,7 +35,7 @@ namespace Tools.Test
         }
 
         [Test]
-        [Description("Проверяем корректность работы десериализации")]
+        [Description("РџСЂРѕРІРµСЂСЏРµРј РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ СЂР°Р±РѕС‚С‹ РґРµСЃРµСЂРёР°Р»РёР·Р°С†РёРё")]
         public void DeserializeTest()
         {
             var xml = remoteClient.SensorData.SerializeData<XmlDocument>();

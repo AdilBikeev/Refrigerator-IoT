@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RefrigeratorServerSide.Data;
 using RefrigeratorServerSide.Data.RefriRepo;
+using AutoMapper;
 
 namespace RefrigeratorServerSide
 {
@@ -35,15 +36,16 @@ namespace RefrigeratorServerSide
                 (Configuration.GetConnectionString("RefrigeratorConnection")));
 
             Console.WriteLine($"{nameof(IsDevelopment)}={IsDevelopment}");
-            var foo = Environment.GetEnvironmentVariables();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             if (this.IsDevelopment)
-            {
-                services.AddScoped<IPlaceRepo, MockPlaceRepo>();                
+            {           
+                services.AddSingleton<IRefriRepo, MockRefriRepo>();             
             }
             else 
             {
-                services.AddScoped<IPlaceRepo, SqlPlaceRepo>();    
-                services.AddScoped<IRefriRepo, SqlReftiRepo>();    
+                services.AddScoped<IRefriRepo, SqlReftiRepo>();
             }
 
             services.AddControllers();
@@ -54,6 +56,7 @@ namespace RefrigeratorServerSide
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,23 +66,23 @@ namespace RefrigeratorServerSide
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRouting();
+
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod());
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            
             app.UseSwagger(c => {
                 c.SerializeAsV2 = true;
             });
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", nameof(RefrigeratorServerSide));
-            });
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
             });
         }
     }
