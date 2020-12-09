@@ -55,14 +55,13 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                     BlockUUID=this._encrypt.GetSHA512("0"),
                     Name="Блок с яйцами",
                     Refrigerator=_refrigerators[0]
+                },
+                new RefrigeratorBlock()
+                {
+                    BlockUUID=this._encrypt.GetSHA512("1"),
+                    Name="Блок с водой",
+                    Refrigerator=_refrigerators[0]
                 }
-                //,
-                //new RefrigeratorBlock()
-                //{
-                //    BlockUUID=this._encrypt.GetSHA512("1"),
-                //    Name="Блок с водой",
-                //    Refrigerator=_refrigerators[0]
-                //}
             };
         }
 
@@ -85,19 +84,19 @@ namespace RefrigeratorServerSide.Data.RefriRepo
                     Value="5 шт.",
                     RefrigeratorBlock=_refriBlocks[0]
                 }
-                // ,
-                //new SensorData() {
-                //    SensorUUID=this._encrypt.GetSHA512("2") ,
-                //    Name="Pepsi",
-                //    Value="2 л.",
-                //    RefrigeratorBlock=_refriBlocks[1]
-                //},
-                //new SensorData() {
-                //    SensorUUID=this._encrypt.GetSHA512("4") ,
-                //    Name="Pepsi",
-                //    Value="1 л.",
-                //    RefrigeratorBlock=_refriBlocks[1]
-                //}
+                 ,
+                new SensorData() {
+                    SensorUUID=this._encrypt.GetSHA512("2") ,
+                    Name="Water",
+                    Value="5 л.",
+                    RefrigeratorBlock=_refriBlocks[1]
+                },
+                new SensorData() {
+                    SensorUUID=this._encrypt.GetSHA512("4") ,
+                    Name="Water",
+                    Value="1 л.",
+                    RefrigeratorBlock=_refriBlocks[1]
+                }
             };
         }
 
@@ -137,8 +136,9 @@ namespace RefrigeratorServerSide.Data.RefriRepo
         public override RefrigeratorBlock GetRefriBlock(string blockUUID) => GetRefriItem(this._refriBlocks, blockUUID);
 
         public override IList<string> GetRefriBlockSensorsUUID(string blockUUID) => this._sensors.Where(
-            sensor => sensor.RefrigeratorBlock
-                          .BlockUUID.Equals(blockUUID)
+            sensor =>  sensor.RefrigeratorBlock != null &&
+                       sensor.RefrigeratorBlock
+                             .BlockUUID.Equals(blockUUID)
         )
         .Select(sensor => sensor.SensorUUID)
         .ToList();
